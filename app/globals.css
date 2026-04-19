@@ -3,24 +3,59 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --deep-navy: #0D2137;
+  --sand: #D4B896;
+  --light-blue: #C8E6F5;
+  --section-blue: #E8F4FD;
+  --beige-light: #FAF6F1;
+  --line-green: #06C755;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-deep-navy: var(--deep-navy);
+  --color-sand: var(--sand);
+  --color-light-blue: var(--light-blue);
+  --color-section-blue: var(--section-blue);
+  --color-beige-light: var(--beige-light);
+  --color-line-green: var(--line-green);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Floating star animation for Final CTA */
+@keyframes star-float {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translate(1px, -4px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-1px, -7px);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(2px, -3px);
+    opacity: 0.7;
+  }
+}
+
+.star-float {
+  animation: star-float var(--dur, 6s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
 }
