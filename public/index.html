@@ -1,0 +1,2033 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Porto（ポルト）— 子育ての「つらい」を、ひとりにしない。</title>
+<meta name="description" content="Portoは、育児の途中でふと立ち寄れる、オンラインの港。6/1プラットフォーム開設。まずは無料のLINEオープンチャットで、話せる場所を。" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Kaisei+Decol:wght@400;500;700&family=Shippori+Mincho:wght@400;500;600&family=Caveat:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* ===== Warm harbor palette ===== */
+    --cream: oklch(0.975 0.018 85);          /* クリーム・生成 */
+    --cream-2: oklch(0.955 0.022 80);
+    --milk: oklch(0.93 0.028 75);             /* ミルクティー */
+    --sand: oklch(0.88 0.04 72);              /* 砂 */
+    --sand-2: oklch(0.82 0.05 68);
+    --peach: oklch(0.84 0.07 48);             /* 朝焼け */
+    --terracotta: oklch(0.72 0.12 45);        /* テラコッタ */
+    --rose: oklch(0.76 0.09 25);              /* ローズ */
+
+    --ink: oklch(0.28 0.04 40);               /* 暖かい濃茶 */
+    --ink-2: oklch(0.40 0.04 45);
+    --ink-3: oklch(0.56 0.035 50);
+    --ink-4: oklch(0.70 0.03 55);
+
+    --navy: oklch(0.32 0.055 245);            /* 夕暮れの紺（アクセント） */
+    --navy-deep: oklch(0.22 0.05 248);
+
+    --line: color-mix(in oklch, var(--ink) 14%, transparent);
+    --line-soft: color-mix(in oklch, var(--ink) 8%, transparent);
+
+    --accent: var(--terracotta);
+    --accent-soft: var(--peach);
+    --accent-ink: oklch(0.42 0.10 40);
+
+    --maxw: 1180px;
+    --radius: 18px;
+    --radius-lg: 28px;
+
+    --sans: "Zen Maru Gothic", "Noto Sans JP", "Hiragino Sans", system-ui, sans-serif;
+    --serif: "Shippori Mincho", "Noto Serif JP", "Hiragino Mincho ProN", serif;
+    --display: "Fraunces", "Shippori Mincho", serif;
+    --hand: "Caveat", "Zen Maru Gothic", cursive;
+
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+
+  /* accent variants */
+  [data-accent="terracotta"]{ --accent: oklch(0.72 0.12 45); --accent-soft: oklch(0.86 0.07 55); --accent-ink: oklch(0.42 0.10 40); }
+  [data-accent="rose"]      { --accent: oklch(0.74 0.11 20); --accent-soft: oklch(0.88 0.06 22); --accent-ink: oklch(0.44 0.09 18); }
+  [data-accent="sage"]      { --accent: oklch(0.72 0.06 145); --accent-soft: oklch(0.88 0.04 145); --accent-ink: oklch(0.40 0.06 145); }
+  [data-accent="mustard"]   { --accent: oklch(0.78 0.12 78); --accent-soft: oklch(0.90 0.06 85); --accent-ink: oklch(0.46 0.10 75); }
+  [data-accent="plum"]      { --accent: oklch(0.62 0.10 340); --accent-soft: oklch(0.86 0.05 340); --accent-ink: oklch(0.38 0.09 340); }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--cream);
+    font-size: 16px;
+    line-height: 1.85;
+    font-weight: 400;
+    letter-spacing: 0.015em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  button { font: inherit; }
+  a { color: inherit; }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+  @media (min-width: 900px){ .wrap { padding: 0 48px; } }
+
+  /* ========== 6/1 notice banner ========== */
+  .notice {
+    position: relative;
+    background: var(--navy-deep);
+    color: var(--cream);
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+  }
+  .notice strong { color: var(--accent-soft); font-weight: 700; }
+  .notice::before, .notice::after{
+    content:""; position:absolute; top:0; bottom:0; width: 60px;
+    background: linear-gradient(90deg, var(--navy-deep), transparent);
+    pointer-events: none;
+  }
+  .notice::after { right: 0; transform: scaleX(-1); }
+  .notice .scroll-inner {
+    display: inline-flex; gap: 40px; align-items: center;
+    animation: slideNotice 34s linear infinite;
+    white-space: nowrap;
+  }
+  .notice .dot { color: var(--accent); margin: 0 18px; }
+  @keyframes slideNotice { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ========== nav ========== */
+  .nav {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in oklch, var(--cream) 92%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px;
+    max-width: var(--maxw); margin: 0 auto;
+  }
+  @media (min-width: 900px){ .nav__inner { padding: 16px 48px; } }
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px;
+    text-decoration: none; color: var(--ink);
+  }
+  .brand__mark {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent);
+    display: inline-grid; place-items: center;
+    color: var(--cream);
+  }
+  .brand__name {
+    font-family: var(--display); font-style: italic; font-weight: 400;
+    font-size: 22px; letter-spacing: 0.01em;
+  }
+  .brand__sub { font-size: 11px; color: var(--ink-3); letter-spacing: 0.12em; margin-left: 2px; }
+  .cta-mini {
+    font-size: 13px; font-weight: 500;
+    padding: 10px 18px; border-radius: 999px;
+    background: var(--ink); color: var(--cream);
+    text-decoration: none;
+    transition: transform .2s var(--ease);
+  }
+  .cta-mini:hover { transform: translateY(-1px); }
+
+  /* ========== HERO ========== */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0 0;
+    isolation: isolate;
+  }
+  .hero__bg {
+    position: absolute; inset: 0; z-index: -2;
+    background:
+      radial-gradient(80% 70% at 20% 10%, oklch(0.94 0.04 65) 0%, transparent 60%),
+      radial-gradient(80% 70% at 85% 20%, oklch(0.90 0.05 35) 0%, transparent 60%),
+      linear-gradient(180deg, var(--cream) 0%, var(--milk) 100%);
+  }
+
+  .hero__inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 32px 22px 0;
+    display: grid; gap: 36px;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  @media (min-width: 900px){
+    .hero__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px;
+      padding: 56px 48px 0;
+      min-height: calc(100vh - 120px);
+    }
+  }
+
+  .hero__eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: 0.14em;
+    color: var(--ink-2);
+    background: color-mix(in oklch, var(--accent-soft) 40%, var(--cream));
+    padding: 8px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .hero__eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.6; } }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(34px, 8.2vw, 76px);
+    line-height: 1.25;
+    letter-spacing: 0.005em;
+    margin: 0 0 24px;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .hero h1 .hl {
+    position: relative;
+    display: inline-block;
+    padding: 0 2px;
+  }
+  .hero h1 .hl::before {
+    content:""; position: absolute; left: -2px; right: -2px; bottom: 0.08em; height: 0.4em;
+    background: var(--accent-soft);
+    opacity: 0.55;
+    z-index: -1;
+    border-radius: 4px;
+    transform: rotate(-0.8deg);
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-family: var(--display);
+    font-weight: 400;
+    color: var(--accent-ink);
+  }
+  .hero__sub {
+    font-size: clamp(15px, 3.8vw, 18px);
+    line-height: 2;
+    color: var(--ink-2);
+    margin: 0 0 28px;
+    max-width: 32ch;
+  }
+  .hero__cta {
+    display: flex; flex-direction: column; gap: 16px; align-items: flex-start;
+  }
+  @media (min-width: 600px){
+    .hero__cta { flex-direction: row; align-items: center; gap: 22px; }
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 18px 28px;
+    font-size: 16px; font-weight: 700;
+    background: var(--accent);
+    color: var(--cream);
+    border: none; border-radius: 999px;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    box-shadow: 0 12px 28px -10px color-mix(in oklch, var(--accent) 70%, transparent);
+    letter-spacing: 0.02em;
+  }
+  .btn::before{
+    content:""; position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, color-mix(in oklch, white 30%, transparent) 50%, transparent 70%);
+    transform: translateX(-110%);
+    transition: transform 1s var(--ease);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:hover::before { transform: translateX(110%); }
+  .btn .arrow {
+    display: inline-grid; place-items: center;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--cream); color: var(--accent);
+    transition: transform .3s var(--ease);
+  }
+  .btn:hover .arrow { transform: translateX(3px); }
+  .btn--sm { padding: 14px 22px; font-size: 14px; }
+
+  .hero__meta {
+    font-size: 13px; color: var(--ink-3);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .hero__meta .sep { opacity: 0.4; }
+
+  .hero__trust {
+    margin-top: 28px;
+    display: flex; align-items: center; gap: 14px;
+    color: var(--ink-3); font-size: 13px;
+  }
+  .hero__trust .faces { display: flex; }
+  .hero__trust .face {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 2px solid var(--cream);
+    margin-left: -8px;
+    background: var(--sand);
+    display: inline-grid; place-items: center;
+    font-size: 13px; color: var(--ink);
+  }
+  .hero__trust .face:nth-child(1){ background: oklch(0.86 0.06 45); margin-left: 0; }
+  .hero__trust .face:nth-child(2){ background: oklch(0.84 0.07 25); }
+  .hero__trust .face:nth-child(3){ background: oklch(0.82 0.05 65); }
+  .hero__trust .face:nth-child(4){ background: oklch(0.80 0.06 100); }
+
+  /* hero illustration */
+  .hero__art {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: linear-gradient(180deg, oklch(0.88 0.06 55) 0%, oklch(0.80 0.08 35) 55%, oklch(0.72 0.09 25) 100%);
+    box-shadow: 0 24px 60px -30px oklch(0.40 0.05 40 / 0.5);
+  }
+  @media (min-width: 900px){ .hero__art { aspect-ratio: 3/4; } }
+
+  .hero__art .sun {
+    position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%);
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, oklch(0.95 0.05 85) 0%, oklch(0.88 0.10 55) 40%, oklch(0.80 0.13 35) 70%, transparent 100%);
+    filter: blur(1px);
+  }
+  .hero__art .sun-core {
+    position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%);
+    width: 96px; height: 96px; border-radius: 50%;
+    background: oklch(0.95 0.05 80);
+    box-shadow: 0 0 60px oklch(0.95 0.05 80 / 0.8);
+  }
+  .hero__art .cloud {
+    position: absolute;
+    background: oklch(0.95 0.02 60 / 0.7);
+    border-radius: 50%;
+    filter: blur(6px);
+  }
+  .hero__art .c1 { left: 10%; top: 15%; width: 140px; height: 40px; }
+  .hero__art .c2 { right: 8%; top: 25%; width: 100px; height: 30px; animation: cloudDrift 18s ease-in-out infinite; }
+  .hero__art .c3 { left: 30%; top: 8%; width: 80px; height: 24px; animation: cloudDrift 14s ease-in-out infinite reverse; }
+  @keyframes cloudDrift { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(10px); } }
+
+  .hero__art .sea {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 45%;
+    background: linear-gradient(180deg, oklch(0.72 0.06 40 / 0.5) 0%, oklch(0.50 0.08 35) 50%, oklch(0.38 0.07 32) 100%);
+  }
+  .hero__art .sea-glow {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 40%; height: 45%;
+    background: radial-gradient(ellipse at 50% 0%, oklch(0.90 0.08 70 / 0.7), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* silhouette: parent holding child */
+  .hero__art .family {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 56%;
+    filter: drop-shadow(0 -8px 20px oklch(0.30 0.04 40 / 0.3));
+  }
+
+  .hero__art .caption {
+    position: absolute; left: 20px; top: 20px;
+    font-family: var(--hand); font-size: 26px;
+    color: oklch(0.28 0.03 40);
+    line-height: 1;
+    transform: rotate(-4deg);
+  }
+  .hero__art .caption small {
+    display: block; font-family: var(--sans); font-size: 10px;
+    letter-spacing: 0.2em; margin-top: 4px;
+    color: oklch(0.34 0.04 38); text-transform: uppercase;
+  }
+  .hero__art .badge {
+    position: absolute; right: 16px; top: 16px;
+    padding: 10px 14px; border-radius: 999px;
+    background: var(--cream); color: var(--ink);
+    font-size: 11px; letter-spacing: 0.1em;
+    font-weight: 700;
+    box-shadow: 0 8px 20px -8px rgba(0,0,0,.2);
+  }
+
+  .hero__scroll {
+    margin: 60px auto 0; padding-bottom: 30px;
+    text-align: center;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .hero__scroll .line {
+    display: block;
+    width: 1px; height: 40px; margin: 12px auto 0;
+    background: var(--ink-3);
+    animation: scrollLine 2.2s ease-in-out infinite;
+    transform-origin: top;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); opacity: 0; }
+    50% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(0) translateY(40px); opacity: 0; }
+  }
+
+  /* ========== section common ========== */
+  section { position: relative; }
+  .label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: 0.22em;
+    color: var(--accent-ink);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .label .dash { width: 24px; height: 1px; background: var(--accent-ink); opacity: 0.5; }
+  .h2 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(28px, 6.2vw, 52px);
+    line-height: 1.4;
+    letter-spacing: 0.005em;
+    margin: 16px 0 0;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .h2 em {
+    font-style: italic; font-family: var(--display); font-weight: 400;
+    color: var(--accent-ink);
+  }
+  .h2 .hl {
+    position: relative;
+    display: inline-block;
+  }
+  .h2 .hl::before {
+    content:""; position:absolute; left: -2px; right: -2px; bottom: 0.1em; height: 0.35em;
+    background: var(--accent-soft); opacity: 0.55;
+    z-index: -1;
+    border-radius: 4px;
+    transform: rotate(-0.6deg);
+  }
+  .lead { font-size: clamp(15px, 3.6vw, 17px); line-height: 2; color: var(--ink-2); max-width: 40ch; margin-top: 20px; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: .08s; }
+  .reveal.d2 { transition-delay: .16s; }
+  .reveal.d3 { transition-delay: .24s; }
+  .reveal.d4 { transition-delay: .32s; }
+
+  /* ========== Section 2 — 共感 ========== */
+  .empathy {
+    padding: 110px 0 120px;
+    background: var(--cream-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .empathy::before{
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(70% 50% at 100% 0%, oklch(0.92 0.05 50 / 0.6), transparent 60%);
+    pointer-events: none;
+  }
+  .empathy .wrap { position: relative; }
+  .empathy__head { text-align: center; max-width: 640px; margin: 0 auto; }
+  .empathy__head .label { justify-content: center; }
+  .empathy__head .h2 { margin-top: 20px; }
+  .empathy__head .lead { margin: 24px auto 0; }
+
+  .empathy__grid {
+    display: grid; gap: 20px;
+    grid-template-columns: 1fr;
+    margin-top: 70px;
+  }
+  @media (min-width: 720px){ .empathy__grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  @media (min-width: 1000px){ .empathy__grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .empathy__card {
+    background: var(--cream);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px 28px;
+    border: 1px solid var(--line-soft);
+    position: relative;
+    overflow: hidden;
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .empathy__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px oklch(0.40 0.05 40 / 0.25);
+  }
+  .empathy__card .time {
+    font-family: var(--display); font-style: italic; font-weight: 400;
+    font-size: 52px; line-height: 1;
+    color: var(--accent-ink);
+    margin-bottom: 20px;
+  }
+  .empathy__card .time small { font-size: 14px; font-family: var(--sans); font-style: normal; color: var(--ink-3); margin-left: 6px; letter-spacing: 0.1em; }
+  .empathy__card h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 19px; line-height: 1.7;
+    margin: 0 0 14px;
+    text-wrap: pretty;
+  }
+  .empathy__card p {
+    font-size: 14px; line-height: 1.95;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  .empathy__card .handwrit {
+    margin-top: 18px;
+    font-family: var(--hand); font-size: 22px;
+    color: var(--accent-ink);
+    line-height: 1.4;
+    transform: rotate(-1deg);
+  }
+  .empathy__card .deco {
+    position: absolute; right: -20px; bottom: -20px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .empathy__quote {
+    margin-top: 70px;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: clamp(18px, 4vw, 26px);
+    line-height: 1.9;
+    color: var(--ink);
+    max-width: 720px;
+    margin-left: auto; margin-right: auto;
+    text-wrap: balance;
+  }
+  .empathy__quote .mark {
+    display: block;
+    font-family: var(--display); font-size: 48px; color: var(--accent);
+    line-height: 1; margin-bottom: 8px;
+  }
+
+  /* ========== Section 3 — Portoとは ========== */
+  .about {
+    padding: 120px 0 130px;
+    background: var(--cream);
+    position: relative;
+  }
+  .about__grid {
+    display: grid; gap: 48px;
+    grid-template-columns: 1fr;
+    margin-top: 56px;
+  }
+  @media (min-width: 900px){
+    .about__grid { grid-template-columns: 1fr 1.05fr; gap: 72px; align-items: center; }
+  }
+
+  .about__media {
+    aspect-ratio: 4/5;
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: linear-gradient(180deg, oklch(0.88 0.05 60) 0%, oklch(0.75 0.08 40) 70%, oklch(0.55 0.10 30) 100%);
+  }
+  .about__media .moon {
+    position: absolute; right: 16%; top: 14%;
+    width: 70px; height: 70px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, oklch(0.96 0.04 85), oklch(0.84 0.08 60) 70%);
+    box-shadow: 0 0 50px oklch(0.90 0.07 70 / 0.5);
+  }
+  .about__media .harbor {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 55%;
+  }
+  .about__media .sticker {
+    position: absolute; left: 20px; top: 20px;
+    background: var(--cream);
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.1em;
+    font-family: var(--hand); font-size: 20px;
+    color: var(--accent-ink);
+    transform: rotate(-3deg);
+    box-shadow: 0 8px 20px -8px rgba(0,0,0,.15);
+  }
+  .about__media .stamp {
+    position: absolute; right: 18px; bottom: 18px;
+    width: 70px; height: 70px; border-radius: 50%;
+    border: 2px solid var(--cream);
+    color: var(--cream);
+    display: grid; place-items: center;
+    font-family: var(--display); font-style: italic;
+    font-size: 12px; line-height: 1.1; text-align: center;
+    transform: rotate(-8deg);
+    opacity: 0.85;
+  }
+
+  .about__copy h2 { margin-bottom: 16px; }
+  .about__text {
+    font-size: 16px; line-height: 2.05; color: var(--ink-2);
+    margin: 24px 0 0;
+  }
+  .about__text p + p { margin-top: 18px; }
+  .about__text strong {
+    font-weight: 500; color: var(--ink);
+    background: linear-gradient(transparent 58%, var(--accent-soft) 58%);
+    padding: 0 2px;
+  }
+  .about__sig {
+    margin-top: 28px;
+    font-family: var(--hand); font-size: 26px;
+    color: var(--accent-ink);
+    line-height: 1.3;
+  }
+
+  .about__values {
+    display: grid; gap: 14px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 36px;
+  }
+  .about__val {
+    padding: 16px 12px;
+    text-align: center;
+    background: var(--milk);
+    border-radius: 14px;
+    border: 1px solid var(--line-soft);
+  }
+  .about__val .em {
+    font-size: 22px; line-height: 1;
+    margin-bottom: 6px;
+    display: block;
+    color: var(--accent-ink);
+  }
+  .about__val .t {
+    font-family: var(--serif); font-size: 14px; font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* ========== Section 4 — 得られること ========== */
+  .offer {
+    padding: 120px 0 130px;
+    background: var(--milk);
+  }
+  .offer__head { max-width: 620px; }
+  .offer__grid {
+    display: grid; gap: 16px;
+    grid-template-columns: 1fr;
+    margin-top: 64px;
+  }
+  @media (min-width: 720px){ .offer__grid { grid-template-columns: 1fr 1fr; gap: 18px; } }
+  @media (min-width: 1000px){ .offer__grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .offer__card {
+    background: var(--cream);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px 36px;
+    border: 1px solid var(--line-soft);
+    position: relative;
+    overflow: hidden;
+    min-height: 380px;
+    display: flex; flex-direction: column;
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .offer__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 50px -24px oklch(0.40 0.05 40 / 0.25);
+  }
+  .offer__art {
+    height: 120px; margin-bottom: 22px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, var(--accent-soft), color-mix(in oklch, var(--accent-soft) 60%, var(--cream)));
+  }
+  .offer__card .num {
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--accent-ink);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .offer__card h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(18px, 4vw, 22px);
+    line-height: 1.55;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+  .offer__card h3 em { font-style: normal; color: var(--accent-ink); font-family: var(--display); font-style: italic; }
+  .offer__card p {
+    font-size: 14px; line-height: 1.95; color: var(--ink-2);
+    margin: 0;
+    flex: 1;
+  }
+
+  /* ========== Section — Voices ========== */
+  .voices {
+    padding: 120px 0 130px;
+    background: var(--cream);
+    overflow: hidden;
+    position: relative;
+  }
+  .voices__head { text-align: center; max-width: 640px; margin: 0 auto 60px; }
+  .voices__head .label { justify-content: center; }
+  .voices__head .h2 { margin-top: 16px; }
+  .voices__marquee {
+    display: flex; gap: 18px;
+    animation: slide 70s linear infinite;
+    width: max-content;
+  }
+  .voices__marquee.row2 { animation: slide 80s linear infinite reverse; margin-top: 18px; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .voice {
+    flex: 0 0 300px;
+    background: var(--cream);
+    padding: 24px 22px 22px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 14px;
+    min-height: 200px;
+    box-shadow: 0 12px 30px -16px oklch(0.40 0.05 40 / 0.15);
+  }
+  .voice:nth-child(odd) { background: var(--milk); transform: rotate(-0.4deg); }
+  .voice:nth-child(even) { background: var(--cream); transform: rotate(0.3deg); }
+  .voice__quote {
+    font-family: var(--serif);
+    font-size: 15px; line-height: 1.9;
+    text-wrap: pretty;
+    flex: 1;
+    color: var(--ink);
+  }
+  .voice__quote::before { content: "“"; display: inline; font-family: var(--display); font-size: 36px; line-height: 0.4; color: var(--accent); margin-right: 4px; vertical-align: -10px; }
+  .voice__meta {
+    display: flex; align-items: center; gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+    font-size: 12px; color: var(--ink-3);
+  }
+  .voice__avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--sand);
+    flex-shrink: 0;
+    display: inline-grid; place-items: center;
+    font-family: var(--hand); font-size: 16px;
+    color: var(--ink);
+  }
+  .voice__count {
+    margin: 70px auto 0; text-align: center; position: relative;
+  }
+  .voice__count .big {
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(70px, 18vw, 160px);
+    line-height: 1; letter-spacing: -0.02em;
+    color: var(--accent-ink);
+    display: inline-block;
+    position: relative;
+  }
+  .voice__count .big::after {
+    content: "+"; font-size: 0.5em; vertical-align: super; color: var(--accent);
+  }
+  .voice__count small {
+    display: block;
+    font-size: 12px; letter-spacing: 0.22em; color: var(--ink-3);
+    margin-top: 14px;
+    text-transform: uppercase;
+  }
+
+  /* ========== Section 5 — Yuto ========== */
+  .yuto {
+    padding: 120px 0 130px;
+    background: var(--sand);
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .yuto::before {
+    content:""; position: absolute; inset: 0;
+    background:
+      radial-gradient(60% 40% at 100% 0%, oklch(0.92 0.05 55 / 0.6), transparent 60%),
+      radial-gradient(40% 30% at 0% 100%, oklch(0.82 0.07 30 / 0.4), transparent 60%);
+    pointer-events: none;
+  }
+  .yuto__grid {
+    display: grid; gap: 44px;
+    grid-template-columns: 1fr;
+    margin-top: 56px;
+    position: relative;
+  }
+  @media (min-width: 900px){
+    .yuto__grid { grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: start; }
+  }
+
+  .yuto__photo-wrap {
+    position: relative;
+  }
+  .yuto__photo {
+    aspect-ratio: 4/5;
+    background: linear-gradient(180deg, oklch(0.75 0.06 50) 0%, oklch(0.58 0.08 38) 100%);
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+  .yuto__photo .caption {
+    position: absolute; left: 16px; top: 16px;
+    background: var(--cream); padding: 8px 12px; border-radius: 999px;
+    font-size: 11px; letter-spacing: 0.12em; color: var(--ink);
+    font-weight: 500;
+  }
+  .yuto__photo .stamp-b {
+    position: absolute; right: 16px; bottom: 16px;
+    font-family: var(--hand); font-size: 22px; color: var(--cream);
+    line-height: 1.2;
+    text-align: right;
+  }
+  .yuto__sticker {
+    position: absolute;
+    right: -14px; top: -14px;
+    width: 92px; height: 92px;
+    background: var(--accent);
+    color: var(--cream);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--hand); font-size: 18px;
+    line-height: 1.2; text-align: center;
+    transform: rotate(8deg);
+    box-shadow: 0 10px 20px -8px rgba(0,0,0,.2);
+    z-index: 2;
+  }
+
+  .yuto__letter {
+    background: var(--cream);
+    padding: 36px 28px 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 50px -24px oklch(0.40 0.05 40 / 0.35);
+    position: relative;
+  }
+  @media (min-width: 900px){ .yuto__letter { padding: 44px 44px 36px; } }
+  .yuto__letter::before {
+    content:""; position: absolute; inset: 10px;
+    border: 1px dashed var(--line);
+    pointer-events: none;
+    border-radius: calc(var(--radius-lg) - 12px);
+  }
+  .yuto__from {
+    font-family: var(--hand); font-size: 22px; color: var(--accent-ink);
+    margin-bottom: 14px;
+  }
+  .yuto__letter h3 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(19px, 4.2vw, 26px);
+    line-height: 1.7;
+    margin: 0 0 22px;
+    text-wrap: balance;
+  }
+  .yuto__letter p {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 15px; line-height: 2.1;
+    color: var(--ink-2);
+    margin: 0 0 16px;
+    text-wrap: pretty;
+  }
+  .yuto__letter p strong {
+    font-weight: 500; color: var(--ink);
+    background: linear-gradient(transparent 58%, var(--accent-soft) 58%);
+    padding: 0 2px;
+  }
+  .yuto__sign {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-top: 26px; padding-top: 22px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .yuto__sign .name {
+    font-family: var(--hand); font-style: normal; font-size: 34px; line-height: 1;
+    color: var(--accent-ink);
+  }
+  .yuto__sign .title {
+    font-size: 11px; letter-spacing: 0.2em; color: var(--ink-3);
+    text-align: right;
+  }
+
+  /* ========== Section — Roadmap (6/1) ========== */
+  .roadmap {
+    padding: 120px 0 130px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .roadmap::before {
+    content:""; position:absolute; inset: 0;
+    background: radial-gradient(70% 60% at 20% 100%, oklch(0.92 0.05 60 / 0.6), transparent 60%);
+    pointer-events: none;
+  }
+  .roadmap__head { max-width: 620px; position: relative; }
+  .roadmap__date {
+    display: inline-flex; align-items: baseline; gap: 12px;
+    font-family: var(--display); font-style: italic;
+    color: var(--accent-ink);
+    margin-top: 22px;
+    line-height: 1;
+  }
+  .roadmap__date .d { font-size: clamp(68px, 14vw, 128px); }
+  .roadmap__date .m { font-size: clamp(22px, 4.5vw, 38px); font-style: normal; font-family: var(--serif); font-weight: 500; }
+  .roadmap__date .yr { font-size: 14px; font-family: var(--sans); color: var(--ink-3); letter-spacing: 0.2em; font-style: normal; }
+
+  .roadmap__track {
+    margin-top: 60px; position: relative;
+    display: grid; gap: 0;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px){
+    .roadmap__track { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .roadmap__track::before {
+      content:""; position: absolute; left: 5%; right: 5%; top: 42px; height: 2px;
+      background: repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 16px);
+      opacity: 0.5;
+    }
+  }
+  .phase {
+    position: relative;
+    padding: 0 0 0 32px;
+    margin-bottom: 32px;
+  }
+  @media (min-width: 900px){ .phase { padding: 0; margin-bottom: 0; } }
+  .phase::before {
+    content:""; position: absolute; left: 0; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--cream); border: 2px solid var(--accent);
+  }
+  @media (min-width: 900px){
+    .phase::before { left: 50%; top: 36px; transform: translateX(-50%); }
+    .phase { padding: 80px 4px 0; text-align: center; }
+  }
+  .phase.active::before { background: var(--accent); box-shadow: 0 0 0 6px color-mix(in oklch, var(--accent) 20%, transparent); }
+
+  .phase .when {
+    font-size: 12px; letter-spacing: 0.18em;
+    color: var(--accent-ink);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .phase h4 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(17px, 4vw, 20px); margin: 0 0 8px;
+    line-height: 1.5;
+  }
+  .phase p { font-size: 14px; line-height: 1.9; color: var(--ink-2); margin: 0; }
+  .phase .tag {
+    display: inline-block;
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 10px; letter-spacing: 0.14em;
+    background: var(--milk); color: var(--ink-2);
+    font-weight: 500;
+    margin-top: 10px;
+  }
+  .phase.active .tag { background: var(--accent); color: var(--cream); }
+
+  /* ========== Section — Safety ========== */
+  .safety {
+    padding: 120px 0 130px;
+    background: var(--milk);
+  }
+  .safety__grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+    margin-top: 56px;
+  }
+  @media (min-width: 720px){ .safety__grid { grid-template-columns: 1fr 1fr; gap: 16px; } }
+
+  .safety__item {
+    background: var(--cream);
+    padding: 28px 24px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line-soft);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 18px;
+    align-items: start;
+    transition: transform .3s var(--ease);
+  }
+  .safety__item:hover { transform: translateY(-2px); }
+  .safety__item .g {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    display: grid; place-items: center;
+  }
+  .safety__item h4 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 17px; margin: 0 0 8px;
+  }
+  .safety__item p { font-size: 14px; line-height: 1.95; color: var(--ink-2); margin: 0; }
+
+  /* ========== Section — Steps ========== */
+  .steps {
+    padding: 120px 0 130px;
+    background: var(--cream);
+  }
+  .steps__grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+    margin-top: 56px;
+  }
+  @media (min-width: 720px){ .steps__grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px){ .steps__grid { grid-template-columns: repeat(4, 1fr); } }
+  .step {
+    padding: 28px 24px 30px;
+    background: var(--milk);
+    border-radius: var(--radius);
+    position: relative;
+    min-height: 200px;
+  }
+  .step .n {
+    font-family: var(--display); font-style: italic;
+    font-size: 44px; line-height: 1; color: var(--accent-ink);
+    margin-bottom: 14px;
+  }
+  .step h4 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: 17px; margin: 0 0 10px;
+    line-height: 1.4;
+  }
+  .step p { font-size: 14px; line-height: 1.9; color: var(--ink-2); margin: 0; }
+  .step .time {
+    position: absolute; right: 18px; top: 18px;
+    font-size: 11px; letter-spacing: 0.14em;
+    color: var(--accent-ink);
+    background: var(--cream);
+    padding: 4px 10px; border-radius: 999px;
+    font-weight: 500;
+  }
+
+  /* ========== FAQ ========== */
+  .faq { padding: 120px 0 130px; background: var(--cream-2); }
+  .faq__wrap { max-width: 820px; margin: 0 auto; }
+  .faq__head { text-align: center; }
+  .faq__head .label { justify-content: center; }
+  .faq__list { margin-top: 50px; }
+  .faq details {
+    background: var(--cream);
+    border-radius: var(--radius);
+    border: 1px solid var(--line-soft);
+    padding: 22px 24px;
+    margin-bottom: 10px;
+    transition: box-shadow .3s var(--ease);
+  }
+  .faq details[open] { box-shadow: 0 16px 36px -18px oklch(0.40 0.05 40 / 0.25); }
+  .faq summary {
+    list-style: none;
+    cursor: pointer;
+    display: grid; grid-template-columns: 1fr 32px; gap: 16px; align-items: center;
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(15px, 3.8vw, 17px);
+    line-height: 1.6;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary .icn {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--milk); color: var(--ink);
+    display: inline-grid; place-items: center;
+    transition: transform .35s var(--ease), background .35s var(--ease), color .35s var(--ease);
+  }
+  .faq details[open] summary .icn { background: var(--accent); color: var(--cream); transform: rotate(45deg); }
+  .faq__body {
+    margin: 16px 0 0;
+    font-size: 14px; line-height: 2; color: var(--ink-2);
+    padding-top: 14px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  /* ========== Final CTA ========== */
+  .final {
+    position: relative;
+    overflow: hidden;
+    padding: 130px 0 110px;
+    text-align: center;
+    isolation: isolate;
+    background:
+      radial-gradient(80% 70% at 50% 0%, oklch(0.88 0.08 45) 0%, transparent 60%),
+      linear-gradient(180deg, var(--sand) 0%, var(--milk) 80%);
+  }
+  .final__glow {
+    position: absolute; left: 50%; top: 0; transform: translate(-50%, -40%);
+    width: 800px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in oklch, var(--accent) 50%, transparent), transparent 70%);
+    filter: blur(50px);
+    z-index: -1;
+    opacity: 0.5;
+  }
+  .final__label {
+    font-family: var(--hand); font-size: 26px;
+    color: var(--accent-ink);
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+  .final h2 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(32px, 7.5vw, 64px);
+    line-height: 1.45;
+    margin: 14px auto 18px;
+    max-width: 18ch;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .final h2 em { color: var(--accent-ink); font-family: var(--display); font-style: italic; font-weight: 400; }
+  .final p.sub {
+    font-size: clamp(15px, 3.6vw, 17px);
+    line-height: 2;
+    max-width: 32ch;
+    margin: 0 auto 36px;
+    color: var(--ink-2);
+  }
+  .final .btn { font-size: 17px; padding: 20px 30px; }
+  .final__note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+  .final__note .dot { color: var(--accent); margin: 0 6px; }
+
+  /* ========== footer ========== */
+  .foot {
+    background: var(--navy-deep);
+    color: color-mix(in oklch, var(--cream) 70%, transparent);
+    padding: 56px 0 36px;
+    font-size: 13px;
+  }
+  .foot .wrap { display: flex; flex-direction: column; gap: 28px; }
+  .foot__top { display: flex; flex-direction: column; gap: 16px; }
+  @media (min-width: 720px){
+    .foot__top { flex-direction: row; justify-content: space-between; align-items: end; }
+  }
+  .foot__brand-name {
+    font-family: var(--display); font-style: italic;
+    font-size: 42px; color: var(--accent-soft);
+    line-height: 1;
+  }
+  .foot__tag { font-size: 12px; letter-spacing: 0.14em; line-height: 1.7; opacity: 0.85; }
+  .foot__bottom {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    font-size: 11px; letter-spacing: 0.14em;
+    opacity: 0.55;
+    border-top: 1px solid color-mix(in oklch, var(--cream) 10%, transparent);
+    padding-top: 22px;
+  }
+
+  /* ========== Tweaks Panel ========== */
+  .tweaks-panel {
+    position: fixed; right: 16px; bottom: 16px; z-index: 100;
+    background: var(--cream); color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px 20px;
+    font-family: var(--sans); font-size: 13px;
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,.3);
+    display: none;
+    width: min(280px, calc(100vw - 32px));
+  }
+  .tweaks-panel.on { display: block; }
+  .tweaks-panel h4 { font-family: var(--display); font-style: italic; font-size: 18px; margin: 0 0 12px; font-weight: 400; }
+  .tweaks-panel .row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .tweaks-panel .row label { font-size: 11px; letter-spacing: 0.14em; color: var(--ink-3); font-weight: 500; }
+  .tweaks-panel .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .tweaks-panel .sw {
+    aspect-ratio: 1; border-radius: 50%; border: 2px solid transparent; cursor: pointer;
+    background: var(--c);
+    transition: transform .2s var(--ease), border-color .2s var(--ease);
+  }
+  .tweaks-panel .sw:hover { transform: scale(1.12); }
+  .tweaks-panel .sw.active { border-color: var(--ink); }
+  .tweaks-panel .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tweaks-panel .seg button {
+    flex: 1; padding: 8px 10px; border: 1px solid var(--line); background: transparent; color: var(--ink);
+    border-radius: 999px; font-size: 11px; font-family: var(--sans);
+    cursor: pointer;
+  }
+  .tweaks-panel .seg button.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 6/1 notice bar -->
+<div class="notice" aria-label="お知らせ">
+  <div class="scroll-inner">
+    <span><strong>2026.6.1</strong> Portoプラットフォーム、まもなく開設。</span>
+    <span class="dot">●</span>
+    <span>いまは <strong>LINEオープンチャット</strong> で先行してお待ちしています。</span>
+    <span class="dot">●</span>
+    <span><strong>完全無料</strong> ／ いつでも退会OK</span>
+    <span class="dot">●</span>
+    <span><strong>2026.6.1</strong> Portoプラットフォーム、まもなく開設。</span>
+    <span class="dot">●</span>
+    <span>いまは <strong>LINEオープンチャット</strong> で先行してお待ちしています。</span>
+    <span class="dot">●</span>
+    <span><strong>完全無料</strong> ／ いつでも退会OK</span>
+  </div>
+</div>
+
+<!-- nav -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M2 10 C 2 8 4 6.5 8 6.5 C 12 6.5 14 8 14 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="8" cy="3.5" r="1.8" fill="currentColor"/>
+          <path d="M3 12 Q 5 13 8 12 T 13 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </span>
+      <span>
+        <span class="brand__name">Porto</span>
+        <span class="brand__sub">ポルト</span>
+      </span>
+    </a>
+    <a class="cta-mini" href="#join">参加する</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero__bg"></div>
+  <div class="hero__inner">
+    <div class="hero__text">
+      <span class="hero__eyebrow"><span class="dot"></span>0〜3歳のママ・パパのための、話せる場所</span>
+      <h1>
+        子育てって、<br/>
+        <span class="hl">こんなに<em>ひとり</em>なんだ。</span><br/>
+        そう感じた夜に。
+      </h1>
+      <p class="hero__sub">
+        夜泣き、寝かしつけ、離乳食。<br/>
+        言葉にならない「つらい」を、<br/>
+        そっと置いていける場所をつくりました。
+      </p>
+      <div class="hero__cta">
+        <a class="btn" href="#join">
+          無料で参加してみる
+          <span class="arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8m0 0L6 2m4 4L6 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <span class="hero__meta">登録不要<span class="sep">・</span>LINEオープンチャット</span>
+      </div>
+      <div class="hero__trust">
+        <div class="faces" aria-hidden="true">
+          <span class="face">☕︎</span>
+          <span class="face">☽</span>
+          <span class="face">♡</span>
+          <span class="face">✿</span>
+        </div>
+        <span> <strong style="color: var(--ink); font-weight: 700;">100人以上</strong> のママ・パパとお話しました</span>
+      </div>
+    </div>
+
+    <div class="hero__art" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="sun-core"></div>
+      <div class="cloud c1"></div>
+      <div class="cloud c2"></div>
+      <div class="cloud c3"></div>
+      <div class="sea"></div>
+      <div class="sea-glow"></div>
+
+      <!-- parent & child silhouette at the harbor -->
+      <svg class="family" viewBox="0 0 200 280" preserveAspectRatio="xMidYMax meet">
+        <!-- pier -->
+        <rect x="-20" y="260" width="240" height="8" fill="oklch(0.32 0.05 35)"/>
+        <rect x="10" y="260" width="3" height="20" fill="oklch(0.28 0.04 35)"/>
+        <rect x="60" y="260" width="3" height="20" fill="oklch(0.28 0.04 35)"/>
+        <rect x="120" y="260" width="3" height="20" fill="oklch(0.28 0.04 35)"/>
+        <rect x="180" y="260" width="3" height="20" fill="oklch(0.28 0.04 35)"/>
+        <!-- parent (taller) -->
+        <g fill="oklch(0.30 0.04 35)">
+          <ellipse cx="100" cy="50" rx="22" ry="26"/>
+          <!-- hair bun -->
+          <circle cx="100" cy="28" r="10"/>
+          <!-- body -->
+          <path d="M72 260 Q 70 160 92 120 Q 100 112 108 120 Q 130 160 128 260 Z"/>
+          <!-- arm holding child -->
+          <path d="M128 140 Q 155 145 162 165 Q 158 178 148 182 Q 135 170 128 160 Z"/>
+        </g>
+        <!-- child (smaller, held) -->
+        <g fill="oklch(0.38 0.05 35)">
+          <ellipse cx="150" cy="170" rx="13" ry="14"/>
+          <path d="M135 200 Q 133 178 150 172 Q 168 178 166 200 Z"/>
+        </g>
+      </svg>
+
+      <div class="caption">
+        ひとりじゃ、ないですよ。
+        <small>— at Porto harbor</small>
+      </div>
+      <div class="badge">6.1 OPEN</div>
+    </div>
+  </div>
+  <div class="hero__scroll">Scroll<span class="line"></span></div>
+</header>
+
+<!-- ============ SECTION 2 — 共感 ============ -->
+<section class="empathy">
+  <div class="wrap">
+    <div class="empathy__head reveal">
+      <span class="label"><span class="dash"></span>こんなこと、ありませんか<span class="dash"></span></span>
+      <h2 class="h2">「<span class="hl">わかる</span>」って、<br/>言える人がいない夜に。</h2>
+      <p class="lead">小さな「つらい」を、言葉にできないまま抱えていませんか。<br>あなただけじゃないよ、という話をしたいんです。</p>
+    </div>
+
+    <div class="empathy__grid">
+      <article class="empathy__card reveal d1">
+        <div class="time">03:14<small>AM</small></div>
+        <h3>泣き声がやまない、深夜。</h3>
+        <p>抱っこしても、ミルクをあげても、泣きやまない。スマホの明かりの中で、検索しながらただ途方に暮れていた——そんな夜、ありませんか。</p>
+        <div class="handwrit">「わたしだけ…？」</div>
+      </article>
+
+      <article class="empathy__card reveal d2">
+        <div class="time">正解<small>なし</small></div>
+        <h3>何が「合ってる」のか、<br/>誰も教えてくれない。</h3>
+        <p>離乳食、ネントレ、寝かしつけ。本もSNSも、みんな言うことが違う。「これでいいのかな」と、毎日手探りで過ぎていく。</p>
+        <div class="handwrit">「これで合ってる…？」</div>
+      </article>
+
+      <article class="empathy__card reveal d3">
+        <div class="time">話す<small>相手</small></div>
+        <h3>ママ友にも、<br/>夫にも言いにくい。</h3>
+        <p>愚痴を言ったら「甘えてる」と思われそう。ちゃんとしたママに見られたい。だから、ただ素で話せる場所が、欲しかった。</p>
+        <div class="handwrit">「愚痴りたいな…」</div>
+      </article>
+    </div>
+
+    <p class="empathy__quote reveal d1">
+      <span class="mark">“</span>
+      そんなママ・パパの声を、<br/>
+      これまで<strong style="font-weight: 500; color: var(--accent-ink);">100人以上</strong>から聞いてきました。
+    </p>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 — Portoとは ============ -->
+<section class="about">
+  <div class="wrap">
+    <div class="about__grid">
+      <div class="about__media reveal">
+        <div class="moon"></div>
+        <!-- harbor illustration -->
+        <svg class="harbor" viewBox="0 0 400 220" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="waterG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="oklch(0.50 0.08 35)"/>
+              <stop offset="100%" stop-color="oklch(0.32 0.06 32)"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="90" width="400" height="130" fill="url(#waterG)"/>
+          <!-- lighthouse -->
+          <g fill="oklch(0.94 0.03 70)">
+            <rect x="48" y="50" width="14" height="46"/>
+          </g>
+          <g fill="oklch(0.72 0.10 30)">
+            <rect x="45" y="62" width="20" height="6"/>
+            <rect x="45" y="78" width="20" height="6"/>
+          </g>
+          <g fill="oklch(0.32 0.05 35)">
+            <polygon points="55,38 45,50 65,50"/>
+          </g>
+          <rect x="51" y="40" width="8" height="6" fill="oklch(0.90 0.12 75)"/>
+          <circle cx="55" cy="43" r="10" fill="oklch(0.90 0.12 75 / 0.4)"/>
+          <!-- harbor warm houses -->
+          <g>
+            <rect x="120" y="72" width="30" height="24" fill="oklch(0.75 0.06 60)"/>
+            <polygon points="120,72 135,60 150,72" fill="oklch(0.50 0.08 35)"/>
+            <rect x="128" y="80" width="6" height="8" fill="oklch(0.90 0.10 75)"/>
+            <rect x="138" y="80" width="6" height="8" fill="oklch(0.90 0.10 75)"/>
+
+            <rect x="156" y="64" width="22" height="32" fill="oklch(0.68 0.10 40)"/>
+            <polygon points="156,64 167,54 178,64" fill="oklch(0.40 0.06 35)"/>
+            <rect x="161" y="74" width="5" height="6" fill="oklch(0.90 0.10 75)"/>
+            <rect x="169" y="74" width="5" height="6" fill="oklch(0.90 0.10 75)"/>
+            <rect x="161" y="84" width="5" height="6" fill="oklch(0.90 0.10 75)"/>
+
+            <rect x="184" y="70" width="34" height="26" fill="oklch(0.82 0.05 65)"/>
+            <polygon points="184,70 201,58 218,70" fill="oklch(0.50 0.08 30)"/>
+            <rect x="192" y="78" width="6" height="8" fill="oklch(0.88 0.10 75)"/>
+            <rect x="204" y="78" width="6" height="8" fill="oklch(0.88 0.10 75)"/>
+
+            <rect x="224" y="60" width="20" height="36" fill="oklch(0.62 0.08 38)"/>
+            <polygon points="224,60 234,50 244,60" fill="oklch(0.38 0.05 30)"/>
+            <rect x="230" y="70" width="4" height="6" fill="oklch(0.90 0.10 75)"/>
+            <rect x="237" y="70" width="4" height="6" fill="oklch(0.90 0.10 75)"/>
+
+            <rect x="248" y="68" width="28" height="28" fill="oklch(0.78 0.08 55)"/>
+            <polygon points="248,68 262,58 276,68" fill="oklch(0.44 0.07 30)"/>
+            <rect x="254" y="76" width="5" height="7" fill="oklch(0.90 0.10 75)"/>
+            <rect x="264" y="76" width="5" height="7" fill="oklch(0.90 0.10 75)"/>
+
+            <rect x="282" y="72" width="28" height="24" fill="oklch(0.72 0.07 45)"/>
+            <polygon points="282,72 296,62 310,72" fill="oklch(0.42 0.06 33)"/>
+            <rect x="290" y="82" width="6" height="8" fill="oklch(0.88 0.10 75)"/>
+
+            <rect x="316" y="66" width="24" height="30" fill="oklch(0.66 0.09 35)"/>
+            <polygon points="316,66 328,56 340,66" fill="oklch(0.40 0.06 30)"/>
+            <rect x="322" y="74" width="5" height="8" fill="oklch(0.90 0.10 75)"/>
+            <rect x="330" y="74" width="5" height="8" fill="oklch(0.90 0.10 75)"/>
+          </g>
+          <!-- pier -->
+          <rect x="30" y="96" width="340" height="4" fill="oklch(0.32 0.05 30)"/>
+          <!-- small boats -->
+          <g fill="oklch(0.28 0.04 32)">
+            <path d="M80 108 L 110 108 L 106 114 L 84 114 Z"/>
+            <rect x="92" y="95" width="1" height="13"/>
+            <polygon points="93,95 100,105 93,107" fill="oklch(0.88 0.06 65)"/>
+          </g>
+          <g fill="oklch(0.28 0.04 32)">
+            <path d="M295 112 L 325 112 L 321 118 L 299 118 Z"/>
+            <rect x="309" y="100" width="1" height="13"/>
+            <polygon points="310,100 318,110 310,112" fill="oklch(0.80 0.09 40)"/>
+          </g>
+          <!-- water ripples -->
+          <g stroke="oklch(0.90 0.06 75 / 0.4)" stroke-width="0.6" fill="none">
+            <path d="M0 130 Q 100 125 200 130 T 400 130"/>
+            <path d="M0 150 Q 100 145 200 150 T 400 150"/>
+            <path d="M0 175 Q 100 170 200 175 T 400 175"/>
+            <path d="M0 200 Q 100 196 200 200 T 400 200"/>
+          </g>
+        </svg>
+        <span class="sticker">安心して、<br/>立ち寄って。</span>
+        <span class="stamp">Porto —<br/>a harbor</span>
+      </div>
+
+      <div class="about__copy reveal d1">
+        <span class="label"><span class="dash"></span>Portoって何？<span class="dash"></span></span>
+        <h2 class="h2" style="margin-top: 16px;">
+          育児の<em>航海</em>のとちゅうで、<br/>
+          ふっと<span class="hl">立ち寄れる港</span>。
+        </h2>
+
+        <div class="about__text">
+          <p>Porto（ポルト）は、ポルトガル語で「港」。<br/>
+          終わりが見えない毎日の中で、ちょっとだけ肩の力を抜いて、<strong>「疲れたね」って言える場所</strong>にしたいと思っています。</p>
+
+          <p>同じ時期に、同じことで悩んでるママ・パパが集まって、<strong>なんでも話せる、匿名のコミュニティ</strong>です。<br/>
+          アドバイスしあう場所じゃなくて、ただ、話を聞いてもらえる場所。</p>
+        </div>
+
+        <div class="about__values">
+          <div class="about__val"><span class="em">♡</span><span class="t">ひとりじゃない</span></div>
+          <div class="about__val"><span class="em">☕︎</span><span class="t">気軽に話せる</span></div>
+          <div class="about__val"><span class="em">✿</span><span class="t">やさしい場所</span></div>
+        </div>
+
+        <div class="about__sig">— ゆっくり、いっしょに、つくっていけたら。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 — 得られること ============ -->
+<section class="offer">
+  <div class="wrap">
+    <div class="offer__head reveal">
+      <span class="label"><span class="dash"></span>Portoで、できること<span class="dash"></span></span>
+      <h2 class="h2">Portoで、<br/><span class="hl">あなたを待っているもの</span>。</h2>
+    </div>
+
+    <div class="offer__grid">
+      <article class="offer__card reveal d1">
+        <div class="offer__art" aria-hidden="true">
+          <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <!-- speech bubbles -->
+            <ellipse cx="80" cy="70" rx="50" ry="30" fill="oklch(0.96 0.02 60)"/>
+            <path d="M60 92 L 55 104 L 80 90 Z" fill="oklch(0.96 0.02 60)"/>
+            <ellipse cx="220" cy="90" rx="55" ry="32" fill="oklch(0.92 0.04 50)"/>
+            <path d="M240 114 L 248 126 L 220 114 Z" fill="oklch(0.92 0.04 50)"/>
+            <!-- small hearts in bubble -->
+            <g fill="oklch(0.62 0.13 30)" opacity="0.8">
+              <path d="M80 70 C 76 66, 70 68, 70 73 C 70 78, 80 84, 80 84 C 80 84, 90 78, 90 73 C 90 68, 84 66, 80 70 Z"/>
+            </g>
+            <text x="220" y="95" text-anchor="middle" font-family="Caveat, cursive" font-size="22" fill="oklch(0.40 0.08 35)">わかる〜</text>
+          </svg>
+        </div>
+        <div class="num">01 / つながり</div>
+        <h3>同じ気持ちの人が、<br/>ここにいます。</h3>
+        <p>夜泣き、離乳食、ネントレ。「わかる」って言い合える相手が、ちゃんといます。「ひとりじゃないんだ」それだけで、肩の力がゆるみます。</p>
+      </article>
+
+      <article class="offer__card reveal d2">
+        <div class="offer__art" aria-hidden="true">
+          <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <!-- moon & stars cozy -->
+            <circle cx="220" cy="60" r="32" fill="oklch(0.95 0.05 80)"/>
+            <circle cx="232" cy="55" r="28" fill="oklch(0.90 0.08 55)"/>
+            <g fill="oklch(0.50 0.08 30)">
+              <circle cx="80" cy="50" r="2"/>
+              <circle cx="120" cy="30" r="1.5"/>
+              <circle cx="60" cy="90" r="1.8"/>
+              <circle cx="160" cy="70" r="1.5"/>
+              <circle cx="45" cy="130" r="1.6"/>
+            </g>
+            <!-- mug -->
+            <g>
+              <path d="M90 100 L 90 140 C 90 148 96 150 104 150 L 140 150 C 148 150 154 148 154 140 L 154 100 Z" fill="oklch(0.68 0.10 35)"/>
+              <path d="M154 108 C 164 108 168 116 168 124 C 168 132 164 140 154 140" stroke="oklch(0.68 0.10 35)" stroke-width="5" fill="none"/>
+              <path d="M100 95 Q 104 80 108 95" stroke="oklch(0.90 0.02 60)" stroke-width="1.5" fill="none" opacity="0.7"/>
+              <path d="M120 95 Q 124 78 128 95" stroke="oklch(0.90 0.02 60)" stroke-width="1.5" fill="none" opacity="0.7"/>
+              <path d="M140 95 Q 144 82 148 95" stroke="oklch(0.90 0.02 60)" stroke-width="1.5" fill="none" opacity="0.7"/>
+            </g>
+          </svg>
+        </div>
+        <div class="num">02 / 安心</div>
+        <h3>正解じゃなくていい、<br/><em>ただ話せる</em>場所。</h3>
+        <p>アドバイスはいりません。<br/>「今日、疲れたな」って書くだけでOK。深夜でも、早朝でも、誰かがきっと、そこにいます。</p>
+      </article>
+
+      <article class="offer__card reveal d3">
+        <div class="offer__art" aria-hidden="true">
+          <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+            <!-- growing plant / together -->
+            <path d="M50 150 Q 80 100 120 90 Q 160 80 200 100 Q 240 120 270 150" stroke="oklch(0.55 0.08 130)" stroke-width="2" fill="none"/>
+            <g fill="oklch(0.65 0.12 140)">
+              <ellipse cx="95" cy="100" rx="12" ry="6" transform="rotate(-30 95 100)"/>
+              <ellipse cx="150" cy="82" rx="14" ry="7" transform="rotate(10 150 82)"/>
+              <ellipse cx="210" cy="100" rx="12" ry="6" transform="rotate(30 210 100)"/>
+            </g>
+            <!-- small flowers -->
+            <g>
+              <circle cx="100" cy="92" r="6" fill="oklch(0.80 0.12 40)"/>
+              <circle cx="100" cy="92" r="2.5" fill="oklch(0.96 0.05 80)"/>
+              <circle cx="155" cy="72" r="6" fill="oklch(0.75 0.10 25)"/>
+              <circle cx="155" cy="72" r="2.5" fill="oklch(0.96 0.05 80)"/>
+              <circle cx="215" cy="92" r="6" fill="oklch(0.78 0.13 50)"/>
+              <circle cx="215" cy="92" r="2.5" fill="oklch(0.96 0.05 80)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="num">03 / 共創</div>
+        <h3>一緒に、<span class="hl">港をつくる</span>仲間に。</h3>
+        <p>Portoは、まだ生まれたばかり。あなたの「こんな機能ほしいな」から、次の形が決まっていきます。最初の仲間として、一緒に育てていきませんか。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOICES ============ -->
+<section class="voices">
+  <div class="wrap">
+    <div class="voices__head reveal">
+      <span class="label"><span class="dash"></span>ママ・パパの声<span class="dash"></span></span>
+      <h2 class="h2">100人の<span class="hl">「わかる」</span>から、<br/>Portoは生まれました。</h2>
+    </div>
+  </div>
+
+  <div class="voices__marquee">
+    <div class="voice">
+      <div class="voice__quote">夜中に一人で泣いてるとき、「同じ人がいる」って思えるだけで違う。格好つけずに書けるのが、ほんとに嬉しい。</div>
+      <div class="voice__meta"><span class="voice__avatar">A</span><span>ママ・1歳／東京</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">離乳食、何をあげればいいのか毎日Googleしてた。「それで大丈夫だよ」って言ってくれる人がいるだけで、肩の力が抜けた。</div>
+      <div class="voice__meta"><span class="voice__avatar">M</span><span>パパ・6ヶ月／大阪</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">ママ友がいなかった。SNSのキラキラ投稿を見て、自分だけ不出来なのかなって落ち込んでた。ここは、素で話せる。</div>
+      <div class="voice__meta"><span class="voice__avatar">R</span><span>ママ・2歳／福岡</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">「寝かしつけ2時間かかる」って書いたら、「うちもです」が10件。それだけで救われた日がありました。</div>
+      <div class="voice__meta"><span class="voice__avatar">Y</span><span>ママ・0歳／横浜</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">相談窓口は敷居が高くて、ママ友には見栄を張ってしまう。ここは匿名で、誰も責めない。不思議な場所です。</div>
+      <div class="voice__meta"><span class="voice__avatar">K</span><span>パパ・3歳／名古屋</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">毎晩、寝る前にここを開くのが習慣になりました。誰かの「おやすみ」を読んで、やっと肩の力が抜ける。</div>
+      <div class="voice__meta"><span class="voice__avatar">S</span><span>ママ・1歳／札幌</span></div>
+    </div>
+    <!-- duplicate -->
+    <div class="voice">
+      <div class="voice__quote">夜中に一人で泣いてるとき、「同じ人がいる」って思えるだけで違う。格好つけずに書けるのが、ほんとに嬉しい。</div>
+      <div class="voice__meta"><span class="voice__avatar">A</span><span>ママ・1歳／東京</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">離乳食、何をあげればいいのか毎日Googleしてた。「それで大丈夫だよ」って言ってくれる人がいるだけで、肩の力が抜けた。</div>
+      <div class="voice__meta"><span class="voice__avatar">M</span><span>パパ・6ヶ月／大阪</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">ママ友がいなかった。SNSのキラキラ投稿を見て、自分だけ不出来なのかなって落ち込んでた。ここは、素で話せる。</div>
+      <div class="voice__meta"><span class="voice__avatar">R</span><span>ママ・2歳／福岡</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">「寝かしつけ2時間かかる」って書いたら、「うちもです」が10件。それだけで救われた日がありました。</div>
+      <div class="voice__meta"><span class="voice__avatar">Y</span><span>ママ・0歳／横浜</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">相談窓口は敷居が高くて、ママ友には見栄を張ってしまう。ここは匿名で、誰も責めない。不思議な場所です。</div>
+      <div class="voice__meta"><span class="voice__avatar">K</span><span>パパ・3歳／名古屋</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">毎晩、寝る前にここを開くのが習慣になりました。誰かの「おやすみ」を読んで、やっと肩の力が抜ける。</div>
+      <div class="voice__meta"><span class="voice__avatar">S</span><span>ママ・1歳／札幌</span></div>
+    </div>
+  </div>
+
+  <div class="voices__marquee row2">
+    <div class="voice">
+      <div class="voice__quote">はじめての育休。孤独だったけど、ここでみんなの声を読むだけで気持ちが軽くなりました。</div>
+      <div class="voice__meta"><span class="voice__avatar">T</span><span>パパ・0歳／仙台</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">イヤイヤ期の愚痴、リアルでは言いにくかった。ここでは「うちも！」って共感してもらえる。</div>
+      <div class="voice__meta"><span class="voice__avatar">N</span><span>ママ・2歳／神戸</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">ワンオペの日、誰かの書き込みがタイムリーに届くと、隣に誰かいる気がして心強い。</div>
+      <div class="voice__meta"><span class="voice__avatar">H</span><span>ママ・1歳／京都</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">みんながお互いに無理せず、遠くからそっと見守っている感じがとても心地いい。</div>
+      <div class="voice__meta"><span class="voice__avatar">E</span><span>ママ・3歳／千葉</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">夜中の授乳中にポチポチ読めるのがいい。「起きてる仲間」がいるだけで、心が落ち着く。</div>
+      <div class="voice__meta"><span class="voice__avatar">C</span><span>ママ・3ヶ月／広島</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">おしゃべりが苦手でも、文字なら書ける。匿名だから、ちゃんと本音が出せました。</div>
+      <div class="voice__meta"><span class="voice__avatar">J</span><span>パパ・1歳／金沢</span></div>
+    </div>
+    <!-- duplicate -->
+    <div class="voice">
+      <div class="voice__quote">はじめての育休。孤独だったけど、ここでみんなの声を読むだけで気持ちが軽くなりました。</div>
+      <div class="voice__meta"><span class="voice__avatar">T</span><span>パパ・0歳／仙台</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">イヤイヤ期の愚痴、リアルでは言いにくかった。ここでは「うちも！」って共感してもらえる。</div>
+      <div class="voice__meta"><span class="voice__avatar">N</span><span>ママ・2歳／神戸</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">ワンオペの日、誰かの書き込みがタイムリーに届くと、隣に誰かいる気がして心強い。</div>
+      <div class="voice__meta"><span class="voice__avatar">H</span><span>ママ・1歳／京都</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">みんながお互いに無理せず、遠くからそっと見守っている感じがとても心地いい。</div>
+      <div class="voice__meta"><span class="voice__avatar">E</span><span>ママ・3歳／千葉</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">夜中の授乳中にポチポチ読めるのがいい。「起きてる仲間」がいるだけで、心が落ち着く。</div>
+      <div class="voice__meta"><span class="voice__avatar">C</span><span>ママ・3ヶ月／広島</span></div>
+    </div>
+    <div class="voice">
+      <div class="voice__quote">おしゃべりが苦手でも、文字なら書ける。匿名だから、ちゃんと本音が出せました。</div>
+      <div class="voice__meta"><span class="voice__avatar">J</span><span>パパ・1歳／金沢</span></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="voice__count reveal">
+      <span class="big">100</span>
+      <small>Parents interviewed · 2025—2026</small>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 — Yuto ============ -->
+<section class="yuto">
+  <div class="wrap">
+    <div class="yuto__grid">
+      <div class="yuto__photo-wrap reveal">
+        <div class="yuto__sticker">22歳、<br/>本気で<br/>つくってます</div>
+        <div class="yuto__photo">
+          <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMax meet" width="100%" height="100%" aria-hidden="true">
+            <!-- silhouette portrait -->
+            <g fill="oklch(0.48 0.06 40)">
+              <ellipse cx="100" cy="85" rx="38" ry="44"/>
+              <path d="M36 250 Q 38 160 100 140 Q 162 160 164 250 Z"/>
+            </g>
+            <g fill="oklch(0.38 0.05 35)">
+              <path d="M62 60 Q 70 38 100 36 Q 130 38 138 60 Q 140 70 135 72 Q 120 56 100 56 Q 80 56 65 72 Q 60 70 62 60 Z"/>
+            </g>
+            <!-- soft placeholder lines -->
+            <g stroke="oklch(0.90 0.04 70 / 0.4)" stroke-width="0.5" fill="none">
+              <path d="M0 250 L 200 250"/>
+            </g>
+          </svg>
+          <span class="caption">Yuto · Founder</span>
+          <span class="stamp-b">Est. 2025<br/>at Porto.</span>
+        </div>
+      </div>
+
+      <div class="yuto__letter reveal d1">
+        <div class="yuto__from">ひとつだけ、お手紙です。</div>
+        <h3>はじめまして、<br/>Portoをつくっている、Yutoと申します。</h3>
+        <p>
+          もともとは、<strong>子どもの教育</strong>をやりたくて、この活動を始めました。
+          でも、100人以上のママ・パパに話を聞くうちに、だんだん気づいてきたんです。
+        </p>
+        <p>
+          「教育どころじゃない」——。<br/>
+          そういう段階で、<strong>親御さん自身が限界を迎えている</strong>人が、こんなにいるんだって。
+        </p>
+        <p>
+          夜に眠れない。離乳食がうまくいかない。相談できる相手がいない。
+          そんなとき、まず必要なのは「正解」じゃなくて、<strong>ただ、話せる場所</strong>なんじゃないか。
+          そう思って、Portoを始めました。
+        </p>
+        <p>
+          <strong>2026年6月1日</strong>、プラットフォームとして正式にオープンします。
+          でも、それまで待たなくていい。いまはLINEで、先にお待ちしています。
+        </p>
+        <p>
+          派手なことは、しません。ゆっくり、いっしょに。<br/>
+          どうぞ、お気軽に立ち寄ってみてください。
+        </p>
+        <div class="yuto__sign">
+          <span class="name">yuto.</span>
+          <span class="title">Founder of Porto<br/>2026 · Tokyo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP (6/1) ============ -->
+<section class="roadmap">
+  <div class="wrap">
+    <div class="roadmap__head reveal">
+      <span class="label"><span class="dash"></span>これからのこと<span class="dash"></span></span>
+      <h2 class="h2">Portoは、<span class="hl">ここから</span>。</h2>
+      <div class="roadmap__date">
+        <span class="d">6.1</span>
+        <span class="m">プラットフォーム、開設予定</span>
+      </div>
+      <div style="margin-top: 4px; font-size: 12px; letter-spacing: 0.22em; color: var(--ink-3);">2026 · JUNE</div>
+    </div>
+
+    <div class="roadmap__track">
+      <div class="phase active reveal d1">
+        <div class="when">NOW — 2026.4 〜</div>
+        <h4>LINEオープンチャットで先行スタート</h4>
+        <p>匿名で、なんでも話せるコミュニティ。夜中でも、朝方でも、書き込みOK。</p>
+        <span class="tag">参加受付中</span>
+      </div>
+      <div class="phase reveal d2">
+        <div class="when">2026.6.1</div>
+        <h4>Portoプラットフォーム、正式開設</h4>
+        <p>LINEから、ちゃんと使いやすい専用アプリ／ウェブへ。記録・相談・つながりを一つの港に。</p>
+        <span class="tag">まもなく</span>
+      </div>
+      <div class="phase reveal d3">
+        <div class="when">これから</div>
+        <h4>ひとりにしない日本一の育児プラットフォームへ</h4>
+        <p>話せる場所から、頼れる場所へ。あなたの声を、いっしょに育てていきます。</p>
+        <span class="tag">Coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAFETY ============ -->
+<section class="safety">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="label"><span class="dash"></span>安心して使うために<span class="dash"></span></span>
+      <h2 class="h2">おやくそく、<br/>ちゃんとしています。</h2>
+    </div>
+
+    <div class="safety__grid">
+      <div class="safety__item reveal d1">
+        <div class="g">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3 L 20 6 V 12 C 20 17 16 20 12 21 C 8 20 4 17 4 12 V 6 Z" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M8 12 L 11 15 L 16 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h4>匿名でOK、本名はいりません</h4>
+          <p>ニックネームとアイコンで参加できます。LINEの実名やプロフィールは表示されないので、安心してお話しいただけます。</p>
+        </div>
+      </div>
+      <div class="safety__item reveal d2">
+        <div class="g">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <rect x="5" y="10" width="14" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M8 10 V 7 C 8 4 10 3 12 3 C 14 3 16 4 16 7 V 10" stroke="currentColor" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <div>
+          <h4>投稿は外に漏らしません</h4>
+          <p>チャットの内容は、他の場所には転載しません。運営も、プライバシーを大切にルールを守ります。</p>
+        </div>
+      </div>
+      <div class="safety__item reveal d3">
+        <div class="g">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M3 12 C 3 8 5 5 8 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M21 12 C 21 16 17 20 12 20 C 10 20 8 19.3 6.5 18.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M6 4 L 9 4 L 9 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h4>いつでも、ワンタップで退会OK</h4>
+          <p>合わないな、と思ったら、すぐに抜けられます。また戻ってくるのも自由。義務も、期限もありません。</p>
+        </div>
+      </div>
+      <div class="safety__item reveal d4">
+        <div class="g">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M5 5 L 19 19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h4>勧誘・広告は、持ち込みません</h4>
+          <p>ビジネス目的の投稿や、外部サービスへの勧誘は禁止です。純粋に「話せる場所」だけを守っていきます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STEPS ============ -->
+<section class="steps">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="label"><span class="dash"></span>参加の流れ<span class="dash"></span></span>
+      <h2 class="h2">たった<em>30秒</em>で、<br/>港に着きます。</h2>
+    </div>
+    <div class="steps__grid">
+      <div class="step reveal d1">
+        <span class="time">10秒</span>
+        <div class="n">01</div>
+        <h4>ボタンをタップ</h4>
+        <p>下の「参加する」からLINEオープンチャットのページに移動します。</p>
+      </div>
+      <div class="step reveal d2">
+        <span class="time">10秒</span>
+        <div class="n">02</div>
+        <h4>ニックネームを決める</h4>
+        <p>本名は不要。好きな名前とアイコンで、匿名のままで参加できます。</p>
+      </div>
+      <div class="step reveal d3">
+        <span class="time">10秒</span>
+        <div class="n">03</div>
+        <h4>「参加」を押すだけ</h4>
+        <p>LINE側の参加ボタンを押したら、もうあなたは港の中。</p>
+      </div>
+      <div class="step reveal d4">
+        <span class="time">ずっと</span>
+        <div class="n">04</div>
+        <h4>話したいときに、話す</h4>
+        <p>読むだけでもOK。ムリに発言しなくて大丈夫。あなたのペースで、どうぞ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="faq__wrap">
+      <div class="faq__head reveal">
+        <span class="label"><span class="dash"></span>よくあるご質問<span class="dash"></span></span>
+        <h2 class="h2">聞きにくい<span class="hl">ちいさな疑問</span>、<br/>お答えします。</h2>
+      </div>
+
+      <div class="faq__list">
+        <details open>
+          <summary>本当に無料ですか？勧誘されたりしませんか？
+            <span class="icn" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 1V9M1 5H9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq__body">はい、完全に無料です。有料プランはありません。運営から商品や外部サービスの勧誘もいたしません。 6月1日にオープンするプラットフォームも、「話せる場所」自体は無料を守り続けます。</div>
+        </details>
+        <details>
+          <summary>子どもが4歳以上でも参加できますか？
+            <span class="icn" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 1V9M1 5H9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq__body">もちろんOKです。メインは0〜3歳のママ・パパですが、年齢制限はありません。「育児つらいな」と感じたら、どなたでもどうぞ。</div>
+        </details>
+        <details>
+          <summary>読むだけの参加でも大丈夫？
+            <span class="icn" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 1V9M1 5H9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq__body">大丈夫です。むしろ最初はROM（読むだけ）で全然OK。「誰かの声を読むだけで楽になる」——それもPortoの大事な使い方です。</div>
+        </details>
+        <details>
+          <summary>LINEの実名やアイコンが他の人に見られませんか？
+            <span class="icn" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 1V9M1 5H9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq__body">見られません。LINEオープンチャットは、普段使っているLINEアカウントとは別のニックネーム・アイコンで参加できます。友だち追加されることもありません。</div>
+        </details>
+        <details>
+          <summary>深夜に書き込んでも、迷惑じゃない？
+            <span class="icn" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 1V9M1 5H9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq__body">まったく迷惑じゃないです。通知は各自オン・オフできますし、むしろ深夜こそPortoが活きる時間だと思っています。</div>
+        </details>
+        <details>
+          <summary>6月1日にオープンする「プラットフォーム」って？
+            <span class="icn" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 1V9M1 5H9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq__body">LINEからもう一歩進んだ、Porto専用のウェブ／アプリです。話せる場所はそのままに、記録・相談・つながりがもっと便利になる予定です。LINE参加者の方には、優先してご案内します。</div>
+        </details>
+        <details>
+          <summary>Yuto(運営)のこと、信用していいの？
+            <span class="icn" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 1V9M1 5H9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq__body">22歳、まだこれからです。だからこそ、100人以上のママ・パパに一人ひとりお話を聞きに行きました。信用は、時間をかけて積み上げていくもの。まずは覗いてみてください。合わなければ、そっと抜けていただいて大丈夫です。</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final" id="join">
+  <div class="final__glow"></div>
+  <div class="wrap">
+    <div class="final__label reveal">— まず、話してみませんか。</div>
+    <h2 class="reveal d1">深夜も、朝も、<br/>誰かが、<em>ここで待ってます</em>。</h2>
+    <p class="sub reveal d2">
+      夜が長く感じる日も。<br/>
+      思い通りにいかなかった日も。<br/>
+      あなたの「今日」を、聞かせてください。
+    </p>
+    <a class="btn reveal d3" id="ctaBtn" href="#" target="_blank" rel="noopener">
+      LINEで無料コミュニティに参加
+      <span class="arrow" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8m0 0L6 2m4 4L6 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+    <div class="final__note reveal d4">登録不要<span class="dot">·</span>完全無料<span class="dot">·</span>いつでも退会OK<span class="dot">·</span>6.1 プラットフォーム開設</div>
+  </div>
+</section>
+
+<!-- footer -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <div class="foot__brand-name">Porto</div>
+        <div class="foot__tag" style="margin-top: 10px;">A harbor for parents,<br/>in the long voyage of raising a child.</div>
+      </div>
+      <div class="foot__tag">Est. 2026 · Tokyo, JP<br/>Platform opening · 6.1</div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 Porto</span>
+      <span>Contact · @porto26harbor@gmail.com</span>
+      <span>v 0.2 · Early Access</span>
+    </div>
+  </div>
+</footer>
+
+<!-- tweaks -->
+<aside class="tweaks-panel" id="tweaks">
+  <h4>Tweaks</h4>
+  <div class="row">
+    <label>アクセントカラー</label>
+    <div class="swatches" id="swSwatches">
+      <button class="sw" data-acc="terracotta" style="--c: oklch(0.72 0.12 45)"   aria-label="terracotta"></button>
+      <button class="sw" data-acc="rose"       style="--c: oklch(0.74 0.11 20)"   aria-label="rose"></button>
+      <button class="sw" data-acc="sage"       style="--c: oklch(0.72 0.06 145)"  aria-label="sage"></button>
+      <button class="sw" data-acc="mustard"    style="--c: oklch(0.78 0.12 78)"   aria-label="mustard"></button>
+      <button class="sw" data-acc="plum"       style="--c: oklch(0.62 0.10 340)"  aria-label="plum"></button>
+    </div>
+  </div>
+  <div class="row">
+    <label>見出しコピー</label>
+    <div class="seg" id="segHeadline">
+      <button data-h="soft">やさしい</button>
+      <button data-h="direct">ストレート</button>
+      <button data-h="question">問いかけ</button>
+    </div>
+  </div>
+  <div class="row">
+    <label>モーション</label>
+    <div class="seg" id="segMotion">
+      <button data-m="on">ON</button>
+      <button data-m="off">OFF</button>
+    </div>
+  </div>
+</aside>
+
+<script>
+  // tweak defaults (host-editable)
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accent": "rose",
+    "headline": "soft",
+    "motion": "on",
+    "ctaUrl": "https:\/\/line.me\/ti\/g2\/PLACEHOLDER"
+  }/*EDITMODE-END*/;
+
+  const root = document.documentElement;
+  const state = { ...TWEAK_DEFAULTS };
+
+  function applyAccent(v){
+    root.setAttribute('data-accent', v);
+    document.querySelectorAll('#swSwatches .sw').forEach(b => b.classList.toggle('active', b.dataset.acc === v));
+  }
+  function applyHeadline(v){
+    const h1 = document.querySelector('.hero h1');
+    const sub = document.querySelector('.hero__sub');
+    if (!h1 || !sub) return;
+    if (v === 'soft') {
+      h1.innerHTML = '子育てって、<br/><span class="hl">こんなに<em>ひとり</em>なんだ。</span><br/>そう感じた夜に。';
+      sub.innerHTML = '夜泣き、寝かしつけ、離乳食。<br/>言葉にならない「つらい」を、<br/>そっと置いていける場所をつくりました。';
+    } else if (v === 'direct') {
+      h1.innerHTML = '育児の「<em>つらい</em>」、<br/>ひとりで<span class="hl">抱えないで</span>。';
+      sub.innerHTML = '0〜3歳の子を育てる、ママ・パパのための無料コミュニティ。<br/>匿名で、いまから話せます。';
+    } else {
+      h1.innerHTML = '今日、だれかに<br/>「<em>つらい</em>」って、<br/><span class="hl">言えましたか？</span>';
+      sub.innerHTML = '言葉にできない気持ちを、そっと置きに来てください。LINEで、匿名・完全無料です。';
+    }
+    document.querySelectorAll('#segHeadline button').forEach(b => b.classList.toggle('active', b.dataset.h === v));
+  }
+  function applyMotion(v){
+    if (v === 'off') {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      document.body.classList.add('motion-off');
+    } else {
+      document.body.classList.remove('motion-off');
+    }
+    document.querySelectorAll('#segMotion button').forEach(b => b.classList.toggle('active', b.dataset.m === v));
+  }
+  function applyCta(url){
+    const cta = document.getElementById('ctaBtn');
+    if (cta && url) cta.href = url;
+  }
+
+  applyAccent(state.accent);
+  applyHeadline(state.headline);
+  applyMotion(state.motion);
+  applyCta(state.ctaUrl);
+
+  document.querySelectorAll('#swSwatches .sw').forEach(b => {
+    b.addEventListener('click', () => { state.accent = b.dataset.acc; applyAccent(state.accent); save({accent: state.accent}); });
+  });
+  document.querySelectorAll('#segHeadline button').forEach(b => {
+    b.addEventListener('click', () => { state.headline = b.dataset.h; applyHeadline(state.headline); save({headline: state.headline}); });
+  });
+  document.querySelectorAll('#segMotion button').forEach(b => {
+    b.addEventListener('click', () => { state.motion = b.dataset.m; applyMotion(state.motion); save({motion: state.motion}); });
+  });
+
+  function save(edits){
+    try { window.parent.postMessage({type:'__edit_mode_set_keys', edits}, '*'); } catch(e){}
+  }
+
+  window.addEventListener('message', (e) => {
+    const d = e.data || {};
+    if (d.type === '__activate_edit_mode') document.getElementById('tweaks').classList.add('on');
+    if (d.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('on');
+  });
+  try { window.parent.postMessage({type:'__edit_mode_available'}, '*'); } catch(e){}
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { rootMargin: '-6% 0px -6% 0px', threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

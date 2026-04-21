@@ -2,6 +2,21 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
+
+function BgImage({ src, alt = "" }: { src: string; alt?: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return null;
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      style={{ objectFit: "cover" }}
+      onError={() => setFailed(true)}
+    />
+  );
+}
 
 const LINE_URL =
   "https://line.me/ti/g2/Ttw1ZQpaqWRCBtQxV9bAcIwMKjQV7QcrvfhC0A?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
@@ -129,15 +144,9 @@ function HeroSection() {
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center text-white px-6 py-32 overflow-hidden"
-      style={{ backgroundColor: DEEP_NAVY }}
+      style={{ background: `linear-gradient(160deg, ${DEEP_NAVY} 0%, #1B3D6B 55%, ${DEEP_NAVY} 100%)` }}
     >
-      <Image
-        src="/images/hero-bg.jpg"
-        alt=""
-        fill
-        style={{ objectFit: "cover" }}
-        priority
-      />
+      <BgImage src="/images/hero-bg.jpg" />
       <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.45)" }} />
 
       {/* Wave layers — slowest=farthest, fastest=closest */}
@@ -223,12 +232,7 @@ const BUBBLES = [
 function VoicesSection() {
   return (
     <section className="relative bg-white px-4 py-20 md:py-28 overflow-hidden">
-      <Image
-        src="/images/wave-bg.jpg"
-        alt=""
-        fill
-        style={{ objectFit: "cover", opacity: 0.12 }}
-      />
+      <BgImage src="/images/wave-bg.jpg" />
       <div className="max-w-lg mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -332,7 +336,7 @@ function AboutSection() {
         >
           <div className="flex justify-center mb-6">
             <Image
-              src="/images/porto-logo.png"
+              src="/images/porto-logo.svg"
               alt="Porto"
               width={180}
               height={60}
@@ -465,12 +469,7 @@ function TrustSection() {
 function CreatorSection() {
   return (
     <section className="relative px-6 py-20 md:py-28 overflow-hidden" style={{ backgroundColor: BEIGE_LIGHT }}>
-      <Image
-        src="/images/warm-harbor.jpg"
-        alt=""
-        fill
-        style={{ objectFit: "cover" }}
-      />
+      <BgImage src="/images/warm-harbor.jpg" />
       <div className="absolute inset-0" style={{ backgroundColor: "rgba(255,255,255,0.88)" }} />
       <div className="max-w-md mx-auto text-center relative z-10">
         <motion.div
@@ -583,12 +582,7 @@ function FinalCTASection() {
       className="relative px-6 py-28 md:py-36 text-white text-center overflow-hidden"
       style={{ backgroundColor: DEEP_NAVY }}
     >
-      <Image
-        src="/images/night-ocean.jpg"
-        alt=""
-        fill
-        style={{ objectFit: "cover" }}
-      />
+      <BgImage src="/images/night-ocean.jpg" />
       <div className="absolute inset-0" style={{ backgroundColor: "rgba(13,33,55,0.75)" }} />
 
       {/* Floating stars (CSS animation) */}
