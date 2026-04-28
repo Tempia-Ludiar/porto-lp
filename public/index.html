@@ -293,10 +293,33 @@
     aspect-ratio: 4/5;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    background: linear-gradient(180deg, oklch(0.88 0.06 55) 0%, oklch(0.80 0.08 35) 55%, oklch(0.72 0.09 25) 100%);
+    background: oklch(0.20 0.03 40);
     box-shadow: 0 24px 60px -30px oklch(0.40 0.05 40 / 0.5);
   }
   @media (min-width: 900px){ .hero__art { aspect-ratio: 3/4; } }
+
+  .hero__photo-wrap {
+    position: absolute; inset: 0;
+  }
+  .hero__photo {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .hero__photo-caption {
+    position: absolute; left: 20px; top: 20px;
+    font-family: var(--hand); font-size: 26px;
+    color: oklch(0.96 0.02 60);
+    line-height: 1;
+    transform: rotate(-4deg);
+    text-shadow: 0 1px 6px oklch(0.10 0.02 40 / 0.6);
+  }
+  .hero__photo-caption small {
+    display: block; font-family: var(--sans); font-size: 10px;
+    letter-spacing: 0.2em; margin-top: 4px;
+    color: oklch(0.88 0.03 60); text-transform: uppercase;
+  }
 
   .hero__art .sun {
     position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%);
@@ -592,7 +615,8 @@
     text-align: center;
     background: var(--milk);
     border-radius: 14px;
-    border: 1px solid var(--line-soft);
+    border: 1px solid var(--line);
+    box-shadow: 0 2px 10px -4px oklch(0.40 0.05 40 / 0.12);
   }
   .about__val .em {
     font-size: 22px; line-height: 1;
@@ -1147,6 +1171,421 @@
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
   }
+
+  /* ============================================
+     RESPONSIVE — モバイル完全対応
+     ============================================ */
+
+  /* ---- スワイプヒント ---- */
+  .swipe-hint {
+    display: none;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-4);
+    margin-top: 12px;
+    user-select: none;
+  }
+  @media (max-width: 719px) { .swipe-hint { display: block; } }
+  @media (max-width: 899px) { .swipe-hint-md { display: block; } }
+  .swipe-hint-md {
+    display: none;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-4);
+    margin-top: 12px;
+    user-select: none;
+  }
+
+  /* =====================
+     NAV
+  ===================== */
+  @media (max-width: 360px) {
+    .brand__sub { display: none; }
+    .nav__inner { padding: 12px 16px; }
+    .cta-mini   { padding: 8px 12px; font-size: 12px; }
+  }
+
+  /* =====================
+     HERO — 常に横並び (均等)
+  ===================== */
+  @media (max-width: 899px) {
+    .hero__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 18px 16px 0;
+      min-height: unset;
+      align-items: start;
+    }
+    .hero h1       { font-size: clamp(18px, 4.8vw, 36px); margin-bottom: 10px; }
+    .hero__eyebrow { font-size: 10px; padding: 5px 10px; margin-bottom: 10px; }
+    .hero__sub     { font-size: 13px; line-height: 1.7; margin-bottom: 12px; }
+    .hero__cta     { gap: 10px; }
+    .hero__meta    { font-size: 11px; }
+    .hero__trust   { margin-top: 10px; font-size: 12px; }
+    .hero__trust .face { width: 26px; height: 26px; font-size: 11px; }
+    .btn           { padding: 12px 16px; font-size: 13px; gap: 8px; }
+    .btn .arrow    { width: 22px; height: 22px; }
+    .hero__art     { aspect-ratio: 3/4; }
+    .hero__photo-caption { font-size: 14px; left: 8px; top: 8px; }
+    .hero__art .badge    { font-size: 9px; padding: 5px 9px; right: 8px; top: 8px; }
+    .hero__scroll  { margin-top: 20px; }
+  }
+  @media (max-width: 479px) {
+    .hero__inner { gap: 10px; padding: 14px 12px 0; }
+    .hero h1     { font-size: clamp(16px, 4.8vw, 20px); margin-bottom: 8px; }
+    .hero__eyebrow { font-size: 9px; padding: 4px 8px; margin-bottom: 8px; }
+    .hero__sub   { font-size: 12px; line-height: 1.6; margin-bottom: 10px; }
+    .hero__meta  { display: none; }
+    .hero__trust { font-size: 11px; margin-top: 8px; gap: 6px; }
+    .hero__trust .face { width: 22px; height: 22px; font-size: 10px; margin-left: -6px; }
+    .btn         { padding: 10px 13px; font-size: 12px; gap: 6px; }
+    .btn .arrow  { width: 20px; height: 20px; }
+    .hero__photo-caption { font-size: 12px; left: 6px; top: 6px; }
+    .hero__art .badge    { font-size: 8px; padding: 4px 7px; right: 6px; top: 6px; }
+    .hero__scroll { margin-top: 14px; }
+  }
+
+  /* =====================
+     共通: セクション padding 削減
+  ===================== */
+  @media (max-width: 719px) {
+    .empathy, .about, .offer, .voices,
+    .yuto, .roadmap, .safety, .steps, .faq { padding: 52px 0 56px; }
+    .final { padding: 52px 0 44px; }
+    .h2  { font-size: clamp(22px, 6.5vw, 34px); }
+    .lead { font-size: 14px; line-height: 1.85; }
+    .roadmap__date .d { font-size: clamp(44px, 11vw, 68px); }
+  }
+
+  /* =====================
+     EMPATHY — 3枚横スクロール
+  ===================== */
+  @media (max-width: 719px) {
+    .empathy__head { margin-bottom: 0; }
+    .empathy__grid {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 14px;
+      margin-top: 28px;
+      padding-bottom: 8px;
+      margin-left: -22px; margin-right: -22px;
+      padding-left: 22px; padding-right: 22px;
+    }
+    .empathy__grid::-webkit-scrollbar { display: none; }
+    .empathy__grid::after { content: ""; flex: 0 0 22px; }
+    .empathy__card {
+      min-width: 270px;
+      flex: 0 0 270px;
+      scroll-snap-align: start;
+    }
+    .empathy__card .time { font-size: 40px; margin-bottom: 14px; }
+    .empathy__quote { margin-top: 40px; font-size: clamp(16px, 4vw, 20px); }
+  }
+
+  /* =====================
+     ABOUT — タブレット: 横並び (768-899px)
+  ===================== */
+  @media (max-width: 899px) {
+    .about__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+      align-items: start;
+    }
+    .about__media { aspect-ratio: 4/5; }
+    .about__text  { margin-top: 10px; }
+    .about__text p { font-size: 13px; line-height: 1.85; }
+    .about__text p + p { margin-top: 10px; }
+    .about__values { gap: 6px; margin-top: 14px; }
+    .about__val  { padding: 10px 4px; }
+    .about__val .em { font-size: 16px; }
+    .about__val .t  { font-size: 11px; line-height: 1.3; }
+    .about__sig  { font-size: 16px; margin-top: 12px; }
+  }
+
+  /* =====================
+     ABOUT — スマホ: イラストを背景化 (〜767px)
+     PC・タブレット(768px+)には影響なし
+  ===================== */
+  @media (max-width: 767px) {
+    .about { overflow: hidden; }
+    /* グリッドを1列に変更 → about__mediaは背景に退く */
+    .about__grid { grid-template-columns: 1fr; }
+    /* イラストを section 全体の背景に */
+    .about__media {
+      position: absolute;
+      inset: 0;
+      aspect-ratio: unset;
+      border-radius: 0;
+      z-index: 0;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    /* テキストラベルは背景では読めないので非表示 */
+    .about__media .sticker,
+    .about__media .stamp { display: none; }
+    /* テキスト側をカード化して読みやすく */
+    .about__copy {
+      position: relative;
+      z-index: 1;
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 28px 20px 24px;
+      box-shadow:
+        0 0 0 1px var(--line),
+        0 12px 40px -12px oklch(0.40 0.05 40 / 0.22);
+    }
+    .about__text p { font-size: 13px; }
+    .about__val .t { font-size: 11px; }
+  }
+  @media (max-width: 479px) {
+    .about__text p { font-size: 12px; }
+    .about__val .t { font-size: 10px; }
+  }
+
+  /* =====================
+     OFFER — 3枚横スクロール
+  ===================== */
+  @media (max-width: 719px) {
+    .offer__head { max-width: 100%; }
+    .offer__grid {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 14px;
+      margin-top: 28px;
+      padding-bottom: 8px;
+      margin-left: -22px; margin-right: -22px;
+      padding-left: 22px; padding-right: 22px;
+    }
+    .offer__grid::-webkit-scrollbar { display: none; }
+    .offer__grid::after { content: ""; flex: 0 0 22px; }
+    .offer__card {
+      min-width: 270px;
+      flex: 0 0 270px;
+      scroll-snap-align: start;
+      min-height: unset;
+    }
+    .offer__art { height: 90px; margin-bottom: 14px; }
+  }
+
+  /* =====================
+     YUTO — タブレット: 横並び (768-899px)
+  ===================== */
+  @media (max-width: 899px) {
+    .yuto__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+      align-items: start;
+    }
+    .yuto__sticker { width: 64px; height: 64px; font-size: 12px; right: -8px; top: -8px; }
+    .yuto__photo   { aspect-ratio: 3/4; }
+    .yuto__letter  { padding: 20px 16px 16px; }
+    .yuto__letter::before { inset: 6px; }
+    .yuto__from    { font-size: 16px; margin-bottom: 10px; }
+    .yuto__letter h3 { font-size: clamp(14px, 3.2vw, 20px); margin-bottom: 12px; line-height: 1.5; }
+    .yuto__body p  { font-size: 12px; line-height: 1.85; margin-bottom: 10px; }
+    .yuto__sign    { margin-top: 12px; padding-top: 10px; }
+    .yuto__sign .name  { font-size: 24px; }
+    .yuto__sign .title { font-size: 10px; }
+  }
+
+  /* =====================
+     YUTO — スマホ: Grid named areas で構造化 (〜767px)
+     写真+見出し → 横並び
+     本文 → フルワイド
+     PC・タブレット(768px+)には影響なし
+  ===================== */
+  @media (max-width: 767px) {
+    /* yuto__grid をカードに昇格し、grid-areas を定義 */
+    .yuto__grid {
+      display: grid;
+      grid-template-columns: 36% 1fr;
+      grid-template-areas:
+        "photo head"
+        "body  body";
+      gap: 0 12px;
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 50px -24px oklch(0.40 0.05 40 / 0.35);
+      padding: 16px;
+      margin-top: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* カードの点線フレーム */
+    .yuto__grid::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px dashed var(--line);
+      border-radius: calc(var(--radius-lg) - 10px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 写真エリア */
+    .yuto__photo-wrap {
+      grid-area: photo;
+      position: relative;
+      z-index: 2;
+      align-self: start;
+    }
+    .yuto__sticker { display: none; }
+    .yuto__photo {
+      aspect-ratio: 3/4;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 22px -8px rgba(0,0,0,.35);
+    }
+    /* 写真の内側光沢フレーム */
+    .yuto__photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 2px oklch(1 0 0 / 0.55);
+      pointer-events: none;
+    }
+    /* 写真内テキスト: 復活（小サイズで） */
+    .yuto__photo .caption {
+      display: block;
+      font-size: 9px;
+      padding: 4px 8px;
+      letter-spacing: 0.08em;
+    }
+    .yuto__photo .stamp-b {
+      display: block;
+      font-size: 11px;
+      line-height: 1.3;
+      padding: 0 8px 6px 0;
+      text-align: right;
+    }
+
+    /* 手紙の box を透明化 → 子要素がグリッドに参加 */
+    .yuto__letter {
+      display: contents;
+    }
+    .yuto__letter::before { display: none; }
+
+    /* 見出しエリア（写真の右） */
+    .yuto__head {
+      grid-area: head;
+      align-self: center;
+      position: relative;
+      z-index: 1;
+    }
+    .yuto__from      { font-size: 13px; margin-bottom: 6px; }
+    .yuto__head h3   { font-size: 14px; line-height: 1.5; margin: 0; }
+
+    /* 本文エリア（フルワイド） */
+    .yuto__body {
+      grid-area: body;
+      position: relative;
+      z-index: 1;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .yuto__body p    { font-size: 12px; line-height: 1.8; margin-bottom: 8px; }
+    .yuto__sign      { margin-top: 12px; padding-top: 10px; }
+    .yuto__sign .name  { font-size: 22px; }
+    .yuto__sign .title { font-size: 10px; }
+  }
+
+  @media (max-width: 479px) {
+    .yuto__grid { padding: 12px; grid-template-columns: 34% 1fr; }
+    .yuto__grid::before { inset: 6px; }
+    .yuto__from    { font-size: 12px; }
+    .yuto__head h3 { font-size: 13px; }
+    .yuto__body p  { font-size: 11px; }
+    .yuto__sign .name { font-size: 20px; }
+  }
+
+  /* =====================
+     ROADMAP — 横スクロール
+  ===================== */
+  @media (max-width: 899px) {
+    .roadmap__track {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 14px;
+      margin-top: 32px;
+      padding-bottom: 8px;
+      margin-left: -22px; margin-right: -22px;
+      padding-left: 22px; padding-right: 22px;
+    }
+    .roadmap__track::-webkit-scrollbar { display: none; }
+    .roadmap__track::before  { display: none; }
+    .roadmap__track::after   { content: ""; flex: 0 0 22px; }
+    .phase {
+      min-width: 220px;
+      flex: 0 0 220px;
+      scroll-snap-align: start;
+      padding: 22px 18px 20px;
+      background: var(--cream-2);
+      border-radius: var(--radius);
+      border: 1px solid var(--line-soft);
+      margin-bottom: 0;
+      text-align: left;
+    }
+    .phase::before { left: 18px; top: 18px; transform: none; }
+    .phase.active::before { box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 20%, transparent); }
+    .phase .when { margin-top: 28px; }
+  }
+
+  /* =====================
+     SAFETY — コンパクト
+  ===================== */
+  @media (max-width: 479px) {
+    .safety__item { padding: 18px 14px; gap: 12px; }
+    .safety__item .g { width: 40px; height: 40px; }
+    .safety__item h4 { font-size: 15px; }
+  }
+
+  /* =====================
+     STEPS — 2カラム
+  ===================== */
+  @media (max-width: 719px) {
+    .steps__grid { grid-template-columns: 1fr 1fr; margin-top: 28px; }
+    .step { min-height: unset; padding: 20px 16px 22px; }
+    .step .n { font-size: 34px; margin-bottom: 10px; }
+    .step h4  { font-size: 15px; }
+  }
+
+  /* =====================
+     FINAL CTA
+  ===================== */
+  @media (max-width: 479px) {
+    .final h2 { font-size: clamp(24px, 8vw, 36px); }
+    .final .btn { font-size: 15px; padding: 16px 22px; }
+  }
+
+  /* =====================
+     FOOTER
+  ===================== */
+  @media (max-width: 479px) {
+    .foot__brand-name { font-size: 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -1184,7 +1623,7 @@
         <span class="brand__sub">ポルト</span>
       </span>
     </a>
-    <a class="cta-mini" href="#join">参加する</a>
+    <a class="cta-mini" href="https://line.me/ti/g2/Ttw1ZQpaqWRCBtQxV9bAcIwMKjQV7QcrvfhC0A?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener noreferrer">参加する</a>
   </div>
 </nav>
 
@@ -1205,7 +1644,7 @@
         そっと置いていける場所をつくりました。
       </p>
       <div class="hero__cta">
-        <a class="btn" href="#join">
+        <a class="btn" href="https://line.me/ti/g2/Ttw1ZQpaqWRCBtQxV9bAcIwMKjQV7QcrvfhC0A?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener noreferrer">
           無料で参加してみる
           <span class="arrow" aria-hidden="true">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8m0 0L6 2m4 4L6 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1224,43 +1663,17 @@
       </div>
     </div>
 
-    <div class="hero__art" aria-hidden="true">
-      <div class="sun"></div>
-      <div class="sun-core"></div>
-      <div class="cloud c1"></div>
-      <div class="cloud c2"></div>
-      <div class="cloud c3"></div>
-      <div class="sea"></div>
-      <div class="sea-glow"></div>
-
-      <!-- parent & child silhouette at the harbor -->
-      <svg class="family" viewBox="0 0 200 280" preserveAspectRatio="xMidYMax meet">
-        <!-- pier -->
-        <rect x="-20" y="260" width="240" height="8" fill="oklch(0.32 0.05 35)"/>
-        <rect x="10" y="260" width="3" height="20" fill="oklch(0.28 0.04 35)"/>
-        <rect x="60" y="260" width="3" height="20" fill="oklch(0.28 0.04 35)"/>
-        <rect x="120" y="260" width="3" height="20" fill="oklch(0.28 0.04 35)"/>
-        <rect x="180" y="260" width="3" height="20" fill="oklch(0.28 0.04 35)"/>
-        <!-- parent (taller) -->
-        <g fill="oklch(0.30 0.04 35)">
-          <ellipse cx="100" cy="50" rx="22" ry="26"/>
-          <!-- hair bun -->
-          <circle cx="100" cy="28" r="10"/>
-          <!-- body -->
-          <path d="M72 260 Q 70 160 92 120 Q 100 112 108 120 Q 130 160 128 260 Z"/>
-          <!-- arm holding child -->
-          <path d="M128 140 Q 155 145 162 165 Q 158 178 148 182 Q 135 170 128 160 Z"/>
-        </g>
-        <!-- child (smaller, held) -->
-        <g fill="oklch(0.38 0.05 35)">
-          <ellipse cx="150" cy="170" rx="13" ry="14"/>
-          <path d="M135 200 Q 133 178 150 172 Q 168 178 166 200 Z"/>
-        </g>
-      </svg>
-
-      <div class="caption">
-        ひとりじゃ、ないですよ。
-        <small>— at Porto harbor</small>
+    <div class="hero__art">
+      <div class="hero__photo-wrap">
+        <img
+          src="hero-photo.png"
+          alt="夕暮れの港で赤ちゃんを抱くお母さん"
+          class="hero__photo"
+        />
+        <div class="hero__photo-caption">
+          ひとりじゃ、ないですよ。
+          <small>— at Porto harbor</small>
+        </div>
       </div>
       <div class="badge">6.1 OPEN</div>
     </div>
@@ -1299,6 +1712,7 @@
         <div class="handwrit">「愚痴りたいな…」</div>
       </article>
     </div>
+    <p class="swipe-hint" aria-hidden="true">← スワイプ →</p>
 
     <p class="empathy__quote reveal d1">
       <span class="mark">“</span>
@@ -1508,6 +1922,7 @@
         <p>Portoは、まだ生まれたばかり。あなたの「こんな機能ほしいな」から、次の形が決まっていきます。最初の仲間として、一緒に育てていきませんか。</p>
       </article>
     </div>
+    <p class="swipe-hint" aria-hidden="true">← スワイプ →</p>
   </div>
 </section>
 
@@ -1639,52 +2054,45 @@
       <div class="yuto__photo-wrap reveal">
         <div class="yuto__sticker">22歳、<br/>本気で<br/>つくってます</div>
         <div class="yuto__photo">
-          <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMax meet" width="100%" height="100%" aria-hidden="true">
-            <!-- silhouette portrait -->
-            <g fill="oklch(0.48 0.06 40)">
-              <ellipse cx="100" cy="85" rx="38" ry="44"/>
-              <path d="M36 250 Q 38 160 100 140 Q 162 160 164 250 Z"/>
-            </g>
-            <g fill="oklch(0.38 0.05 35)">
-              <path d="M62 60 Q 70 38 100 36 Q 130 38 138 60 Q 140 70 135 72 Q 120 56 100 56 Q 80 56 65 72 Q 60 70 62 60 Z"/>
-            </g>
-            <!-- soft placeholder lines -->
-            <g stroke="oklch(0.90 0.04 70 / 0.4)" stroke-width="0.5" fill="none">
-              <path d="M0 250 L 200 250"/>
-            </g>
-          </svg>
+          <img src="/yuto.jpg" alt="Yuto · Founder of Porto" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" />
           <span class="caption">Yuto · Founder</span>
           <span class="stamp-b">Est. 2025<br/>at Porto.</span>
         </div>
       </div>
 
       <div class="yuto__letter reveal d1">
-        <div class="yuto__from">ひとつだけ、お手紙です。</div>
-        <h3>はじめまして、<br/>Portoをつくっている、Yutoと申します。</h3>
-        <p>
-          もともとは、<strong>子どもの教育</strong>をやりたくて、この活動を始めました。
-          でも、100人以上のママ・パパに話を聞くうちに、だんだん気づいてきたんです。
-        </p>
-        <p>
-          「教育どころじゃない」——。<br/>
-          そういう段階で、<strong>親御さん自身が限界を迎えている</strong>人が、こんなにいるんだって。
-        </p>
-        <p>
-          夜に眠れない。離乳食がうまくいかない。相談できる相手がいない。
-          そんなとき、まず必要なのは「正解」じゃなくて、<strong>ただ、話せる場所</strong>なんじゃないか。
-          そう思って、Portoを始めました。
-        </p>
-        <p>
-          <strong>2026年6月1日</strong>、プラットフォームとして正式にオープンします。
-          でも、それまで待たなくていい。いまはLINEで、先にお待ちしています。
-        </p>
-        <p>
-          派手なことは、しません。ゆっくり、いっしょに。<br/>
-          どうぞ、お気軽に立ち寄ってみてください。
-        </p>
-        <div class="yuto__sign">
-          <span class="name">yuto.</span>
-          <span class="title">Founder of Porto<br/>2026 · Tokyo</span>
+        <!-- yuto__head: 見出しエリア（モバイルで写真の右に配置） -->
+        <div class="yuto__head">
+          <div class="yuto__from">ひとつだけ、お手紙です。</div>
+          <h3>はじめまして、<br/>Portoをつくっている、Yutoと申します。</h3>
+        </div>
+        <!-- yuto__body: 本文エリア（モバイルでフルワイド） -->
+        <div class="yuto__body">
+          <p>
+            もともとは、<strong>子どもの教育</strong>をやりたくて、この活動を始めました。
+            でも、100人以上のママ・パパに話を聞くうちに、だんだん気づいてきたんです。
+          </p>
+          <p>
+            「教育どころじゃない」——。<br/>
+            そういう段階で、<strong>親御さん自身が限界を迎えている</strong>人が、こんなにいるんだって。
+          </p>
+          <p>
+            夜に眠れない。離乳食がうまくいかない。相談できる相手がいない。
+            そんなとき、まず必要なのは「正解」じゃなくて、<strong>ただ、話せる場所</strong>なんじゃないか。
+            そう思って、Portoを始めました。
+          </p>
+          <p>
+            <strong>2026年6月1日</strong>、プラットフォームとして正式にオープンします。
+            でも、それまで待たなくていい。いまはLINEで、先にお待ちしています。
+          </p>
+          <p>
+            派手なことは、しません。ゆっくり、いっしょに。<br/>
+            どうぞ、お気軽に立ち寄ってみてください。
+          </p>
+          <div class="yuto__sign">
+            <span class="name">yuto.</span>
+            <span class="title">Founder of Porto<br/>2026 · Tokyo</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1724,6 +2132,7 @@
         <span class="tag">Coming soon</span>
       </div>
     </div>
+    <p class="swipe-hint-md" aria-hidden="true">← スワイプ →</p>
   </div>
 </section>
 
@@ -1957,7 +2366,7 @@
     "accent": "rose",
     "headline": "soft",
     "motion": "on",
-    "ctaUrl": "https:\/\/line.me\/ti\/g2\/PLACEHOLDER"
+    "ctaUrl": "https:\/\/line.me\/ti\/g2\/Ttw1ZQpaqWRCBtQxV9bAcIwMKjQV7QcrvfhC0A?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
   }/*EDITMODE-END*/;
 
   const root = document.documentElement;
